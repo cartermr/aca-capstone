@@ -10,9 +10,7 @@ const useStyles = makeStyles( (theme) => ({
         marginTop: theme.spacing(2)}
 }))
 
-const SearchResults= () => {
-
-    const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+const SearchResults= (props) => {
     const classes = useStyles()
 
     return (
@@ -28,9 +26,9 @@ const SearchResults= () => {
         </Typography>
         <hr />
         <Grid container justify="center" spacing={4}>
-          {cards.map((card) => (
-            <Grid item key={card}>
-              <img src="http://via.placeholder.com/150" />
+          {props.people.map((person, index) => (
+            <Grid item key={index}>
+              <img src="" alt={person.first_name}/>
             </Grid>
           ))}
         </Grid>

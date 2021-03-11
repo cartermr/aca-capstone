@@ -26,7 +26,8 @@ router.post('/newuser', newAgencyUser)
 router.post('/search', search)
 
 // route to register a person
-router.post('/register', multer.single('photoSelect'), upload, register)
+//router.post('/register', multer.single('photoSelect'), upload, register)
+router.post('/register', register)
 
 // export router
 module.exports = router

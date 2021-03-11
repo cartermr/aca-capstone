@@ -1,12 +1,10 @@
 import { useState } from 'react'
 
 import Search from './Search'
+import SearchResults from './SearchResults'
 import Results from './SearchResults'
 
 const SearchControl = () => {
-    // value to hold the results of the search
-    const [searchResults, setSearchResults] = useState([])
-
     // control the input values, create searchParameters object
     const [searchParameters, setSearchParameters] = useState({})
     const handleInput = (e) => {
@@ -19,21 +17,22 @@ const SearchControl = () => {
     }
 
     const performSearch = async () => {
-        let response = await fetch('/api/search', {
+        fetch('/api/search', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(searchParameters)
         })
-
-        let result = await response.json()
-
-        console.log(result)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                setCurrentDisplay(<SearchResults people={data} />)
+            })
     }
 
     // determine if the search screen or the results screen will display
-    const [CurrentDisplay, SetCurrentDisplay] = useState(<Search onChange={handleInput} performSearch={performSearch} />)
+    const [CurrentDisplay, setCurrentDisplay] = useState(<Search onChange={handleInput} performSearch={performSearch} />)
 
     return CurrentDisplay
 }
