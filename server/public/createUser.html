@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bulma.css">
+    <title>Non-Verbal Identification System</title>
+</head>
+<body>
+    <header class="notification is-primary">
+        <p class="title has-text-centered">NVIS</p>
+    </header>
+    <section id='register' class="">
+        <div class="container mb-5">
+            <p class="title has-text-centered">Create New User</p>
+        </div>
+        <main class="columns is-centered">
+            <section class="column is-7">
+                <article class="box">
+                    <div class="field">
+                        <p class="help is-danger is-hidden" name="first_name">First Name Must Be Entered</p>
+                        <label class="label" for="">First Name:</label>
+                        <input name="text" type="text" class="input" name="" id="first_name">
+
+                        <p class="help is-danger is-hidden" name="last_name">Last Name Must Be Entered</p>
+                        <label class="label" for="">Last Name:</label>
+                        <input name="text" type="text" class="input" name="" id="last_name">
+
+                        <p class="help is-danger is-hidden" name="username">Email Must Be Entered</p>
+                        <p class="help is-danger is-hidden" id="email">Email Already Exists</p>
+                        <p class="help is-danger is-hidden" id="email_type">Must Be Email Address</p>
+                        <label class="label" for="">Email:</label>
+                        <input name="text" type="text" class="input" name="" id="username">
+
+                        <p class="help is-danger is-hidden" name="hash">Password Must Be Entered</p>
+                        <p class="help is-danger is-hidden" id="password_match">Password Do Not Match</p>
+                        <label class="label" for="">Password:</label>
+                        <input name="text" class="input" type="password" name="" id="hash">
+                        <label class="label" for="">Verify Password:</label>
+                        <input class="input" type="password" name="" id="verifyHash">
+                    </div>
+                </article>
+                <div class="field is-flex is-justify-content-space-evenly">
+                    <div class="control">
+                        <button onclick="createUser()" class="button is-medium is-primary">CREATE USER</button>
+                    </div>
+                    <div class="control">
+                        <a href="./" class="button is-medium is-primary">CANCEL</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </section>
+    <script src="./javascript/createAgencyUser.js"></script>
+</body>
+</html>

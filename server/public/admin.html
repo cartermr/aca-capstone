@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bulma.css">
+    <title>Document</title>
+</head>
+<body onload="authenticate()">
+    <header class="notification is-primary">
+        <p class="title has-text-centered">NVIS</p>
+    </header>
+    <section id='register' class="">
+        <div class="container mb-5">
+            <p class="title has-text-centered">Admin</p>
+        </div>
+        <main class="columns is-centered">
+            <section class="column is-7">
+                <div class="field is-flex is-justify-content-center">
+                    <div class="control is-flex is-flex-direction-column">
+                        <a class="button is-primary my-2" href="./createUser.html">Create New User</a>
+                        <a class="button is-primary my-2" href="./register.html">Register a Person</a>
+                        <a class="button is-primary my-2" href="./search.html">Search</a>
+                        <button class="button is-primary my-2" onclick="logOut()">Log Out</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </section>
+    <script src="./javascript/admin.js"></script>
+</body>
+</html>

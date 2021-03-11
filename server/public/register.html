@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bulma.css">
+    <title>Non-Verbal Identification System</title>
+</head>
+<body onload="authenticate()">
+    <header class="notification is-primary">
+        <p class="title has-text-centered">NVIS</p>
+    </header>
+    <section id='register' class="">
+        <div class="container mb-5">
+            <p class="title has-text-centered">Register New Person</p>
+        </div>
+        <main class="columns is-centered">
+            <section class="column is-11">
+                <article class="box">
+                    <p class="is-size-4">Demographic Info</p>
+                    <div class="field is-grouped is-flex-wrap-wrap">
+                        <div class="control">
+                            <label for="" class="label">First Name</label>
+                            <input name="reg" type="text" class="input" id="first_name">
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Last Name</label>
+                            <input name="reg" type="text" class="input" id='last_name'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Date of Birth</label>
+                            <input name="reg" type="text" class="input" id='DOB'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Sex</label>
+                            <input name="reg" type="text" class="input" id='sex'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Race</label>
+                            <input name="reg" type="text" class="input" id='race'>
+                        </div>
+                    </div>
+                    <p class="is-size-4">Physical Description</p>
+                    <div class="field is-grouped is-flex-wrap-wrap">
+                        <div class="control">
+                            <label for="" class="label">Height Feet</label>
+                            <input name="reg" type="text" class="input" id="height_feet">
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Height Inches</label>
+                            <input name="reg" type="text" class="input" id="height_inches">
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Weight</label>
+                            <input name="reg" type="text" class="input" id='weight'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Hair Color</label>
+                            <input name="reg" type="text" class="input" id='hair_color'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Eye Color</label>
+                            <input name="reg" type="text" class="input" id='eye_color'>
+                        </div>
+                    </div>
+                    <p class="is-size-4">Address Info</p>
+                    <div class="field is-grouped is-flex-wrap-wrap">
+                        <div class="control">
+                            <label for="" class="label">House Number</label>
+                            <input name="reg" type="text" class="input" id='street_number'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Street Name</label>
+                            <input name="reg" type="text" class="input" id='street_name'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Street Type</label>
+                            <input name="reg" type="text" class="input" id='street_type'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Street Direction</label>
+                            <input name="reg" type="text" class="input" id='street_direction'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Apartment #</label>
+                            <input name="reg" type="text" class="input" id='apartment_number'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">City</label>
+                            <input name="reg" type="text" class="input" id='city'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">State</label>
+                            <input name="reg" type="text" class="input" id='state'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Zip</label>
+                            <input name="reg" type="text" class="input" id='zip'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Phone #</label>
+                            <input name="reg" type="text" class="input" id='phone'>
+                        </div>
+                    </div>
+                    <p class="is-size-4">Emergency Contact</p>
+                    <div class="field is-grouped is-flex-wrap-wrap">
+                        <div class="control">
+                            <label for="" class="label">Name</label>
+                            <input name="reg" type="text" class="input" id='emergency_name'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Address</label>
+                            <input name="reg" type="text" class="input" id='emergency_address'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Phone #</label>
+                            <input name="reg" type="text" class="input" id='emergency_phone'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Relationship</label>
+                            <input name="reg" type="text" class="input" id='emergency_relationship'>
+                        </div>
+                    </div>
+                </article>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button onclick="register()" class="button is-medium is-primary">Register Information</button>
+                    </div>
+                    <div class="control">
+                        <a href="./admin.html" class="button is-medium is-primary">HOME</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </section>
+
+<!--------------------------- Photo Upload Form ------------------------------------------------------>
+    <section id='photoUpload' class="is-hidden">
+        <div class="container mb-5">
+            <p class="title has-text-centered">Upload Photo</p>
+        </div>
+        <main class="columns is-centered">
+            <section class="column is-11">
+                <form id="photoUploadForm" enctype="multipart/form-data">
+                    <article class="box">
+                            <div class="control">
+                                <input type="file" class="input is-medium" name='photoSelect'>
+                            </div>              
+                    </article>
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-medium is-primary">Upload Photo</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </section>
+<!------------------------------------------------------------------------------------------------------>
+
+    <script src="./javascript/register.js"></script>
+</body>
+</html>

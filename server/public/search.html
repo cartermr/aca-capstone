@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bulma.css">
+    <title>Non-Verbal Identification System</title>
+</head>
+<body onload="authenticate()">
+    <header class="notification is-primary">
+        <p class="title has-text-centered">NVIS</p>
+    </header>
+
+<!-- Search Form ------------------------------------------------------->
+    <section id='search'>
+        <div class="container mb-5">
+            <p class="title has-text-centered">Search</p>
+        </div>
+        <main class="columns is-centered">
+            <section class="column is-11">
+                <article class="box">
+                    <p class="is-size-4">Demographic Info</p>
+                    <div class="field is-grouped is-flex-wrap-wrap">
+                        <div class="control">
+                            <label for="" class="label">First Name</label>
+                            <input type="text" class="input" id="first_name">
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Last Name</label>
+                            <input type="text" class="input" id='last_name'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Date of Birth</label>
+                            <input type="text" class="input" id='DOB'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Sex</label>
+                            <input type="text" class="input" id='sex'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Race</label>
+                            <input type="text" class="input" id='race'>
+                        </div>
+                    </div>
+                    <p class="is-size-4">Physical Description</p>
+                    <div class="field is-grouped is-flex-wrap-wrap">
+                        <div class="control">
+                            <label for="" class="label">Height Feet</label>
+                            <input type="text" class="input" id="height_feet">
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Height Inches</label>
+                            <input type="text" class="input" id="height_inches">
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Weight</label>
+                            <input type="text" class="input" id='weight'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Hair Color</label>
+                            <input type="text" class="input" id='hair_color'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Eye Color</label>
+                            <input type="text" class="input" id='eye_color'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Age</label>
+                            <input type="text" class="input" id='age'>
+                        </div>
+                    </div>
+                    <p class="is-size-4">Address Info</p>
+                    <div class="field is-grouped is-flex-wrap-wrap">
+                        <div class="control">
+                            <label for="" class="label">House Number</label>
+                            <input type="text" class="input" id='street_number'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Street Name</label>
+                            <input type="text" class="input" id='street_name'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Street Type</label>
+                            <input type="text" class="input" id='street_type'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Apartment #</label>
+                            <input type="text" class="input" id='apartment_number'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">City</label>
+                            <input type="text" class="input" id='city'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">State</label>
+                            <input type="text" class="input" id='state'>
+                        </div>
+                        <div class="control">
+                            <label for="" class="label">Zip</label>
+                            <input type="text" class="input" id='zip'>
+                        </div>
+                    </div>
+                </article>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button onclick="performSearch()" class="button is-medium is-primary">SEARCH</button>
+                    </div>
+                    <div class="control">
+                        <a href="./admin.html" class="button is-medium is-primary">HOME</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </section>
+<!----------------------------------------------------------------->
+
+<!-- Displayed Results -------------------------------------------->
+    <section id='results' class="is-hidden">
+        <div class="container mb-5">
+            <p class="title has-text-centered">Results</p>
+        </div>
+        <main class="columns is-centered is-flex-wrap-wrap px-6" id="resultsBody">
+            
+        </main>
+        <div class="field is-grouped">
+            <div class="control">
+                <button onclick="newSearch()" class="button is-medium is-primary">NEW SEARCH</button>
+            </div>
+            <div class="control">
+                <button onclick="adjustSearch()" class="button is-medium is-primary">MODIFY SEARCH</button>
+            </div>
+            <div class="control">
+                <a href="./admin.html" class="button is-medium is-primary">HOME</a>
+            </div>
+        </div>
+    </section>
+<!------------------------------------------------------------------->
+
+<!-- Selected Person Info ------------------------------------------->
+    <section class="modal" id='personInfo' onclick="displayInfo()">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title" id="pickedName"></p>
+            </header>
+            <section id="pickedInfo" class="modal-card-body">
+                <ul>
+                    
+                </ul>
+            </section>
+        </div>
+    </section>
+<!------------------------------------------------------------------->
+    <script src="./javascript/search.js"></script>
+</body>
+</html>
