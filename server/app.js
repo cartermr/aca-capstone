@@ -19,7 +19,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 // serve frontend
-app.use(express.static('public'))
+//app.use(express.static('public'))
 
 // routes
 app.use('/api', router)

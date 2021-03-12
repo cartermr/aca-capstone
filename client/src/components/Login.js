@@ -6,6 +6,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -27,9 +28,8 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const Home = () => {
+const Home = (props) => {
     const classes = useStyles()
-
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -49,8 +49,8 @@ const Home = () => {
               id="email"
               label="Username"
               name="email"
-              autoComplete="email"
               autoFocus
+              onChange={(e) => props.input(e)}
             />
             <TextField
               variant="outlined"
@@ -61,10 +61,11 @@ const Home = () => {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
+              onChange={(e) => props.input(e)}
             />
             <Button
               type="submit"
+              onClick={(e) => props.login(e)}
               fullWidth
               variant="contained"
               color="primary"

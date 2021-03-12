@@ -24,7 +24,7 @@ const Register = (props) => {
         let params = registerParameters
         params[key] = value
         setRegisterParameters(params)
-        console.log('registerParams = ' + JSON.stringify(registerParameters))
+        //console.log('registerParams = ' + JSON.stringify(registerParameters))
     }
 
     const form = useRef(null)
@@ -37,6 +37,8 @@ const Register = (props) => {
             method: "POST",
             body: data
         })
+            .then(res => res.json())
+            .then(data => console.log(data))
     }
 
 
@@ -67,8 +69,7 @@ const Register = (props) => {
                         <TextField variant='outlined' onChange={handleInput} value={registerParameters.dob} name='dob' label='Date of Birth' />
                     </Grid>
                     <Grid item xs={2}>
-                        <TextField select variant='outlined' onChange={handleInput} value={registerParameters.race} name='race' value='race' fullWidth={true} >
-                            <MenuItem value='race'>Race</MenuItem>
+                        <TextField select variant='outlined' onChange={handleInput} value={registerParameters.race} name='race' label='Race' fullWidth={true} >
                             <MenuItem value='White'>White</MenuItem>
                             <MenuItem value='Black'>Black</MenuItem>
                             <MenuItem value='Hispanic'>Hispanic</MenuItem>
@@ -77,8 +78,7 @@ const Register = (props) => {
                         </TextField>
                     </Grid>
                     <Grid item xs={2}>
-                        <TextField select variant='outlined' onChange={handleInput} value={registerParameters.sex} name='sex' value='sex' fullWidth={true}>
-                            <MenuItem value='sex'>Sex</MenuItem>
+                        <TextField select variant='outlined' onChange={handleInput} value={registerParameters.sex} name='sex' label='Sex' fullWidth={true}>
                             <MenuItem value='male'>Male</MenuItem>
                             <MenuItem value='female'>Female</MenuItem>
                         </TextField>
@@ -98,8 +98,7 @@ const Register = (props) => {
                         <TextField variant='outlined' onChange={handleInput} value={registerParameters.weight} name='weight' label='Weight' fullWidth={true} />
                     </Grid>
                     <Grid item xs={2}>
-                        <TextField select variant='outlined' onChange={handleInput} value={registerParameters.hair_color} name='hair_color' value='hair color' fullWidth={true}>
-                            <MenuItem value='hair color'>Hair Color</MenuItem>
+                        <TextField select variant='outlined' onChange={handleInput} value={registerParameters.hair_color} name='hair_color' label="Hair Color" fullWidth={true}>
                             <MenuItem value='Brown'>Brown</MenuItem>
                             <MenuItem value='Blonde'>Blonde</MenuItem>
                             <MenuItem value='Black'>Black</MenuItem>
@@ -110,8 +109,7 @@ const Register = (props) => {
                         </TextField>
                     </Grid>
                     <Grid item xs={2}>
-                        <TextField select variant='outlined' onChange={handleInput} value={registerParameters.eye_color} name='eye_color' value='eye color' fullWidth={true}>
-                            <MenuItem value='eye color'>Eye Color</MenuItem>
+                        <TextField select variant='outlined' onChange={handleInput} value={registerParameters.eye_color} name='eye_color' label="Eye Color" fullWidth={true}>
                             <MenuItem value='Brown'>Brown</MenuItem>
                             <MenuItem value='Blue'>Blue</MenuItem>
                             <MenuItem value='Hazel'>Hazel</MenuItem>
@@ -124,7 +122,7 @@ const Register = (props) => {
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid item xs={8}>
-                        <TextField variant='outlined' onChange={handleInput} value={registerParameters.stree} name='street' label='Street' fullWidth={true} />
+                        <TextField variant='outlined' onChange={handleInput} value={registerParameters.street} name='street' label='Street' fullWidth={true} />
                     </Grid>
                     <Grid item xs={2}>
                         <TextField variant='outlined' onChange={handleInput} value={registerParameters.apartment_number} name='apartment_number' label='Apt Number' />

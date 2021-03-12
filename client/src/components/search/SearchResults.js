@@ -35,17 +35,12 @@ const SearchResults= (props) => {
         <hr />
         <Grid container spacing={2}>
           <Grid item>
-            <Button variant="contained" color="primary">
+            <Button href='/search' variant="contained" color="primary">
               NEW SEARCH
             </Button>
           </Grid>
           <Grid item>
-            <Button variant="contained" color="primary">
-              MODIFY SEARCH
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button variant="contained" color="primary">
+            <Button href='/' variant="contained" color="primary">
               HOME
             </Button>
           </Grid>
