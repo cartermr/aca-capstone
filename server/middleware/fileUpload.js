@@ -9,38 +9,54 @@ const {v4: uuid} = require('uuid')
 // help with file name creation
 const path = require('path')
 
+// For storage to local file system is not deployed to cloud
+let storage = Multer.diskStorage({
+    destination: (req, file, cb) => {
+        console.log(file)
+        console.log(req.body)
+        cb(null, "public/profilePics")
+    },
+    filename: (req, file, cb) => {
+        let id = uuid()
+        cb(null, uuid() + path.extname(file.originalname))
+    }
+})
+
+const multer = Multer({storage: storage})
+
 // create new google storage object
-const storage = new Storage()
+//const storage = new Storage()
 
-// have multer grab the file, temp store in memory
-const multer = Multer({storage: Multer.memoryStorage()})
+// // have multer grab the file, temp store in memory
+// const multer = Multer({storage: Multer.memoryStorage()})
 
-// access the desired storage bucket in google cloud storage
-const bucket = storage.bucket(process.env.GCS_BUCKET)
+// // access the desired storage bucket in google cloud storage
+// const bucket = storage.bucket(process.env.GCS_BUCKET)
 
-// perform the actual upload of the file to google cloud storage
-const upload = async (req, res, next) => {
-    // create a unique filename
-    let filename = uuid() + path.extname(req.file.originalname)
-    req.file.originalname = filename
+// // perform the actual upload of the file to google cloud storage
+// const upload = async (req, res, next) => {
+//     // create a unique filename
+//     let filename = uuid() + path.extname(req.file.originalname)
+//     req.file.originalname = filename
 
-    // grab the file to be uploaded from memory
-    const blob = bucket.file(req.file.originalname)
+//     // grab the file to be uploaded from memory
+//     const blob = bucket.file(req.file.originalname)
 
-    // create a stream writer, to move buffer data of file in memory to storage
-    const blobStream = blob.createWriteStream()
+//     // create a stream writer, to move buffer data of file in memory to storage
+//     const blobStream = blob.createWriteStream()
 
-    // perform the actual buffer write of the data to the storage bucket
-    blobStream.end(req.file.buffer)
+//     // perform the actual buffer write of the data to the storage bucket
+//     blobStream.end(req.file.buffer)
 
-    req.body.file_name = filename
+//     req.body.file_name = filename
 
-    // finish upload and move to next express rout function
-    next()
-}
+//     // finish upload and move to next express rout function
+//     next()
+// }
 
 // export the upload functions to the router
-module.exports = {upload, multer}
+//module.exports = {upload, multer}
+module.exports = multer
 
 // For storage to local file system is not deployed to cloud
 // let storage = multer.diskStorage({

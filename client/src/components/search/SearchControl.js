@@ -16,7 +16,7 @@ const SearchControl = () => {
         console.log('searchParams = ' + JSON.stringify(searchParameters))
     }
 
-    const performSearch = async () => {
+    const performSearch = () => {
         fetch('/api/search', {
             method: "POST",
             headers: {

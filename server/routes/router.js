@@ -11,7 +11,8 @@ const {login} = require('../controllers/login')
 const {logout} = require('../controllers/logout')
 
 // import middleware to be used
-const {multer, upload} = require('../middleware/fileUpload') // handle image upload
+//const {multer, upload} = require('../middleware/fileUpload') // handle image upload
+const multer = require('../middleware/fileUpload') // handle image upload
 
 // defined routes (api endpoints)
 router.post('/authenticate/:type', auth.checkJwt)
@@ -27,7 +28,7 @@ router.post('/search', search)
 
 // route to register a person
 //router.post('/register', multer.single('photoSelect'), upload, register)
-router.post('/register', register)
+router.post('/register', multer.single('photo'), register)
 
 // export router
 module.exports = router
