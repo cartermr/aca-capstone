@@ -1,3 +1,6 @@
+import { useContext, useEffect } from "react";
+import { SearchContext } from "../../contexts/SearchContext";
+
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
@@ -11,8 +14,13 @@ const useStyles = makeStyles( (theme) => ({
 }))
 
 const SearchResults= (props) => {
-    const classes = useStyles()
+  const {searchResults, setSearchResults} = useContext(SearchContext)
 
+  useEffect(() => {
+    console.log(searchResults)
+  })
+
+    const classes = useStyles()
     return (
       <Container component="main">
         <CssBaseline />
@@ -26,11 +34,11 @@ const SearchResults= (props) => {
         </Typography>
         <hr />
         <Grid container justify="center" spacing={4}>
-          {props.people.map((person, index) => (
+          {/* {SearchResults.map((person, index) => (
             <Grid item key={index}>
               <img src="" alt={person.first_name}/>
             </Grid>
-          ))}
+          ))} */}
         </Grid>
         <hr />
         <Grid container spacing={2}>

@@ -1,3 +1,6 @@
+import { useContext, useEffect } from "react";
+import { SearchContext } from "../../contexts/SearchContext";
+
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -14,9 +17,36 @@ const useStyles = makeStyles( (theme) => ({
 }))
 
 const Search = (props) => {
+    const {searchParameters, setSearchParameters} = useContext(SearchContext)
+    const {searchResults, setSearchResults} = useContext(SearchContext)
+
     const reset = () => {
         window.location.reload()
     }
+
+    const handleInput = (e) => {
+        let key = e.target.name
+        let value = e.target.value
+        let params = searchParameters
+        params[key] = value
+        setSearchParameters(params)
+        console.log('searchParams = ' + JSON.stringify(searchParameters))
+    }
+
+    const performSearch = (e) => {
+        e.preventDefault()
+        let user = [
+            {first_name: 'matt'},
+            {first_name: 'kristen'},
+            {first_name: 'claire'}
+        ]
+        setSearchResults([...searchResults, ...user])
+        console.log(searchResults)
+    }
+
+    useEffect(() => {
+        console.log(searchResults)
+    },[searchResults])
 
     const classes = useStyles()
     return (
@@ -26,19 +56,19 @@ const Search = (props) => {
                 SEARCH
             </Typography>
             <hr />
-            <form>
+            <form onSubmit={performSearch}>
                 <Typography className={classes.headers} component='h2' variant='h6'>
                     Demographic Info
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid item>
-                        <TextField variant='outlined' onChange={(e) => {props.onChange(e)}} name='first_name' label='First Name' />
+                        <TextField variant='outlined' onChange={handleInput} name='first_name' label='First Name' />
                     </Grid>
                     <Grid item>
-                        <TextField variant='outlined' onChange={(e) => {props.onChange(e)}} name='last_name' label='Last Name' />
+                        <TextField variant='outlined' onChange={handleInput} name='last_name' label='Last Name' />
                     </Grid>
                     <Grid item xs={2}>
-                        <TextField select variant='outlined' onChange={(e) => {props.onChange(e)}} name='race' value='race' fullWidth={true} >
+                        <TextField select variant='outlined' onChange={handleInput} name='race' value='race' fullWidth={true} >
                             <MenuItem value='race'>Race</MenuItem>
                             <MenuItem value='White'>White</MenuItem>
                             <MenuItem value='Black'>Black</MenuItem>
@@ -48,7 +78,7 @@ const Search = (props) => {
                         </TextField>
                     </Grid>
                     <Grid item xs={2}>
-                        <TextField select variant='outlined' onChange={(e) => {props.onChange(e)}} name='sex' value='sex' fullWidth={true}>
+                        <TextField select variant='outlined' onChange={handleInput} name='sex' value='sex' fullWidth={true}>
                             <MenuItem value='sex'>Sex</MenuItem>
                             <MenuItem value='male'>Male</MenuItem>
                             <MenuItem value='female'>Female</MenuItem>
@@ -60,19 +90,19 @@ const Search = (props) => {
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid item xs={1}>
-                        <TextField variant='outlined' onChange={(e) => {props.onChange(e)}} name='age' label='Age' fullWidth={true} />
+                        <TextField variant='outlined' onChange={handleInput} name='age' label='Age' fullWidth={true} />
                     </Grid>
                     <Grid item xs={2}>
-                        <TextField variant='outlined' onChange={(e) => {props.onChange(e)}} name='height_feet' label='Height Feet' fullWidth={true} />
+                        <TextField variant='outlined' onChange={handleInput} name='height_feet' label='Height Feet' fullWidth={true} />
                     </Grid>
                     <Grid item xs={2}>
-                        <TextField variant='outlined' onChange={(e) => {props.onChange(e)}} name='height_inches' label='Height Inches' fullWidth={true} />
+                        <TextField variant='outlined' onChange={handleInput} name='height_inches' label='Height Inches' fullWidth={true} />
                     </Grid>
                     <Grid item xs={2}>
-                        <TextField variant='outlined' onChange={(e) => {props.onChange(e)}} name='weight' label='Weight' fullWidth={true} />
+                        <TextField variant='outlined' onChange={handleInput} name='weight' label='Weight' fullWidth={true} />
                     </Grid>
                     <Grid item xs={2}>
-                        <TextField select variant='outlined' onChange={(e) => {props.onChange(e)}} name='hair_color' value='hair color' fullWidth={true}>
+                        <TextField select variant='outlined' onChange={handleInput} name='hair_color' value='hair color' fullWidth={true}>
                             <MenuItem value='hair color'>Hair Color</MenuItem>
                             <MenuItem value='Brown'>Brown</MenuItem>
                             <MenuItem value='Blonde'>Blonde</MenuItem>
@@ -84,7 +114,7 @@ const Search = (props) => {
                         </TextField>
                     </Grid>
                     <Grid item xs={2}>
-                        <TextField select variant='outlined' onChange={(e) => {props.onChange(e)}} name='eye_color' value='eye color' fullWidth={true}>
+                        <TextField select variant='outlined' onChange={handleInput} name='eye_color' value='eye color' fullWidth={true}>
                             <MenuItem value='eye color'>Eye Color</MenuItem>
                             <MenuItem value='Brown'>Brown</MenuItem>
                             <MenuItem value='Blue'>Blue</MenuItem>
@@ -98,27 +128,27 @@ const Search = (props) => {
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid item xs={8}>
-                        <TextField variant='outlined' onChange={(e) => {props.onChange(e)}} name='street' label='Street' fullWidth={true} />
+                        <TextField variant='outlined' onChange={handleInput} name='street' label='Street' fullWidth={true} />
                     </Grid>
                     <Grid item xs={2}>
-                        <TextField variant='outlined' onChange={(e) => {props.onChange(e)}} name='apartment_number' label='Apt Number' />
+                        <TextField variant='outlined' onChange={handleInput} name='apartment_number' label='Apt Number' />
                     </Grid>
                 </Grid>
                 <Grid container spacing={2}>
                     <Grid item>
-                        <TextField variant='outlined' onChange={(e) => {props.onChange(e)}} name='city' label='City' />
+                        <TextField variant='outlined' onChange={handleInput} name='city' label='City' />
                     </Grid>
                     <Grid item>
-                        <TextField variant='outlined' onChange={(e) => {props.onChange(e)}} name='state' label='State' />
+                        <TextField variant='outlined' onChange={handleInput} name='state' label='State' />
                     </Grid>
                     <Grid item>
-                        <TextField variant='outlined' onChange={(e) => {props.onChange(e)}} name='zip' label='Zip' />
+                        <TextField variant='outlined' onChange={handleInput} name='zip' label='Zip' />
                     </Grid>
                 </Grid>
                 <hr />
                 <Grid container spacing={2}>
                     <Grid item>
-                        <Button onClick={() => props.performSearch()} variant='contained' color='primary'>SEARCH</Button>
+                        <Button type='submit' variant='contained' color='primary'>SEARCH</Button>
                     </Grid>
                     <Grid item>
                         <Button onClick={reset} variant='contained' color='primary'>RESET</Button>
