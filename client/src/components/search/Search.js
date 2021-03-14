@@ -17,20 +17,20 @@ const useStyles = makeStyles( (theme) => ({
 }))
 
 const Search = (props) => {
-    const {searchParameters, setSearchParameters} = useContext(SearchContext)
-    const {searchResults, setSearchResults} = useContext(SearchContext)
+    const {setSearchParameters} = useContext(SearchContext)
+    // const {searchResults, setSearchResults} = useContext(SearchContext)
 
     const reset = () => {
         window.location.reload()
     }
 
     const handleInput = (e) => {
-        let key = e.target.name
-        let value = e.target.value
-        let params = searchParameters
-        params[key] = value
-        setSearchParameters(params)
-        console.log('searchParams = ' + JSON.stringify(searchParameters))
+        // let key = e.target.name
+        // let value = e.target.value
+        // let params = searchParameters
+        // params[key] = value
+        // setSearchParameters(params)
+        console.log(props)
     }
 
     const performSearch = (e) => {
@@ -40,13 +40,9 @@ const Search = (props) => {
             {first_name: 'kristen'},
             {first_name: 'claire'}
         ]
-        setSearchResults([...searchResults, ...user])
-        console.log(searchResults)
+        // setSearchResults([...searchResults, ...user])
+        // console.log(searchResults)
     }
-
-    useEffect(() => {
-        console.log(searchResults)
-    },[searchResults])
 
     const classes = useStyles()
     return (
@@ -56,7 +52,7 @@ const Search = (props) => {
                 SEARCH
             </Typography>
             <hr />
-            <form onSubmit={performSearch}>
+            <form>
                 <Typography className={classes.headers} component='h2' variant='h6'>
                     Demographic Info
                 </Typography>

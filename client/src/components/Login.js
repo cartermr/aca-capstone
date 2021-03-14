@@ -6,7 +6,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useState } from 'react';
+import { useContext } from 'react';
+import { SearchContext } from '../contexts/SearchContext'
+import Search from '../components/search/Search'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -29,7 +31,13 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const Home = (props) => {
+  const {setComponentDisplayed} = useContext(SearchContext)
     const classes = useStyles()
+
+    const route = () => {
+      setComponentDisplayed(<Search />)
+    }
+
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -40,7 +48,7 @@ const Home = (props) => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          <div className={classes.form} >
             <TextField
               variant="outlined"
               margin="normal"
@@ -64,16 +72,15 @@ const Home = (props) => {
               onChange={(e) => props.input(e)}
             />
             <Button
-              type="submit"
-              onClick={(e) => props.login(e)}
-              fullWidth
+              type="click"
+              onClick={route}
               variant="contained"
               color="primary"
               className={classes.submit}
             >
               Sign In
             </Button>
-          </form>
+          </div>
         </div>
       </Container>
     );

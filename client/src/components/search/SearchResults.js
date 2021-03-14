@@ -14,9 +14,12 @@ const useStyles = makeStyles( (theme) => ({
 }))
 
 const SearchResults= (props) => {
-  const {searchResults, setSearchResults} = useContext(SearchContext)
+  const {searchParameters} = useContext(SearchContext)
+  const {searchResults} = useContext(SearchContext)
 
   useEffect(() => {
+    console.log(props)
+    console.log(searchParameters)
     console.log(searchResults)
   })
 

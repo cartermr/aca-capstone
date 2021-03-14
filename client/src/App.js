@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {BrowserRouter} from 'react-router-dom'
 
 import Header from './components/Header'
@@ -8,6 +8,10 @@ import Search from './components/search/Search'
 import SearchResults from './components/search/SearchResults'
 import SearchControl from './components/search/SearchControl'
 import Register from './components/registration/Register'
+import { SearchContext } from './contexts/SearchContext'
+
+
+
 
 const Main = () => (
   <BrowserRouter>
@@ -16,10 +20,13 @@ const Main = () => (
 )
 
 const App = () => {
+  const {componentDisplayed} = useContext(SearchContext)
+  console.log(componentDisplayed)
   return (
     <>
       <Header />
-      <Main />
+      {componentDisplayed}
+      {/* <Main /> */}
       {/* <Login /> */}
       {/* <Search /> */}
       {/* <SearchResults /> */}
