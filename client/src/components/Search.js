@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom'
+
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -13,8 +16,10 @@ const useStyles = makeStyles( (theme) => ({
     }
 }))
 
-const Search = ({searchParams, setSearchParams}) => {
+const Search = ({searchParams, setSearchParams, searchResults, setSearchResults}) => {
     // console.log(props.setSearchParams)
+
+    const history = useHistory()
     
     const reset = () => {
         window.location.reload()
@@ -31,14 +36,30 @@ const Search = ({searchParams, setSearchParams}) => {
 
     const performSearch = (e) => {
         e.preventDefault()
-        let user = [
-            {first_name: 'matt'},
-            {first_name: 'kristen'},
-            {first_name: 'claire'}
-        ]
+        fetch('/api/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(searchParams)
+        })
+            .then( res => res.json())
+            .then( data => {
+                setSearchResults(data)
+                history.push('/results')
+            })
+        // let user = [
+        //     {first_name: 'matt'},
+        //     {first_name: 'kristen'},
+        //     {first_name: 'claire'}
+        // ]
         // setSearchResults([...searchResults, ...user])
-        // console.log(searchResults)
+        // setSearchResults([...searchResults, searchParams])
     }
+
+    useEffect( () => {
+        console.log(searchResults)
+    }, [searchResults])
 
     const classes = useStyles()
     return (
@@ -48,7 +69,7 @@ const Search = ({searchParams, setSearchParams}) => {
                 SEARCH
             </Typography>
             <hr />
-            <form>
+            <form onSubmit={performSearch}>
                 <Typography className={classes.headers} component='h2' variant='h6'>
                     Demographic Info
                 </Typography>
