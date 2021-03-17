@@ -1,39 +1,24 @@
-import React, { useContext } from 'react'
-import {BrowserRouter} from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 import Header from './components/Header'
-import Router from './router/Router'
-import Login from './components/Login'
-import Search from './components/search/Search'
-import SearchResults from './components/search/SearchResults'
-import SearchControl from './components/search/SearchControl'
-import Register from './components/registration/Register'
-import { SearchContext } from './contexts/SearchContext'
+import Router from './Router'
 
-
-
+import { ContextProvider } from './context'
 
 const Main = () => (
   <BrowserRouter>
-    <Router />
+    <ContextProvider>
+      <Router />
+    </ContextProvider>
   </BrowserRouter>
 )
 
-const App = () => {
-  const {componentDisplayed} = useContext(SearchContext)
-  console.log(componentDisplayed)
+function App() {
   return (
-    <>
-      <Header />
-      {componentDisplayed}
-      {/* <Main /> */}
-      {/* <Login /> */}
-      {/* <Search /> */}
-      {/* <SearchResults /> */}
-      {/* <SearchControl /> */}
-      {/* <Register /> */}
-      {/* <RegisterControl /> */}
-    </>
+    <div>
+        <Header />
+        <Main />
+    </div>
   );
 }
 

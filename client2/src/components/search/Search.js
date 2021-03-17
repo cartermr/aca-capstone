@@ -1,5 +1,4 @@
 import { useContext, useEffect } from "react";
-import { SearchContext } from "../../contexts/SearchContext";
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -17,9 +16,8 @@ const useStyles = makeStyles( (theme) => ({
 }))
 
 const Search = (props) => {
-    const {setSearchParameters} = useContext(SearchContext)
-    // const {searchResults, setSearchResults} = useContext(SearchContext)
-
+    console.log(props)
+    
     const reset = () => {
         window.location.reload()
     }

@@ -1,5 +1,4 @@
 import { useContext, useEffect } from "react";
-import { SearchContext } from "../../contexts/SearchContext";
 
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
@@ -14,13 +13,9 @@ const useStyles = makeStyles( (theme) => ({
 }))
 
 const SearchResults= (props) => {
-  const {searchParameters} = useContext(SearchContext)
-  const {searchResults} = useContext(SearchContext)
 
   useEffect(() => {
     console.log(props)
-    console.log(searchParameters)
-    console.log(searchResults)
   })
 
     const classes = useStyles()
