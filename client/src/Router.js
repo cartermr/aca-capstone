@@ -6,11 +6,11 @@ import { Context, ContextProvider } from './context'
 
 const Router = () => {
     const {searchParams, setSearchParams} = useContext(Context)
-    console.log(searchParams)
+    console.log(typeof setSearchParams)
     return (
         <Switch>
             <Route exact path='/'>
-                <Search searchParams={searchParams} setSearchParams={() => setSearchParams()} />
+                <Search searchParams={searchParams} setSearchParams={setSearchParams} />
             </Route>
         </Switch>
     )

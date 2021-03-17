@@ -13,8 +13,8 @@ const useStyles = makeStyles( (theme) => ({
     }
 }))
 
-const Search = (props) => {
-    console.log(props)
+const Search = ({searchParams, setSearchParams}) => {
+    // console.log(props.setSearchParams)
     
     const reset = () => {
         window.location.reload()
@@ -23,10 +23,10 @@ const Search = (props) => {
     const handleInput = (e) => {
         let key = e.target.name
         let value = e.target.value
-        let params = props.searchParams
+        let params = searchParams
         params[key] = value
-        props.setSearchParams(params)
-        console.log(props)
+        setSearchParams(params)
+        console.log(searchParams)
     }
 
     const performSearch = (e) => {
