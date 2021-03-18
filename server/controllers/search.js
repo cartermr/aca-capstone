@@ -3,7 +3,7 @@ const {DB, mysql} = require('../database/DatabaseConnection')
 let values
 let count
 
-// function to person the search
+// function to search for person
 const search = async (req, res) => {
     let params = req.body
     

@@ -48,13 +48,6 @@ const Search = ({searchParams, setSearchParams, searchResults, setSearchResults}
                 setSearchResults(data)
                 history.push('/results')
             })
-        // let user = [
-        //     {first_name: 'matt'},
-        //     {first_name: 'kristen'},
-        //     {first_name: 'claire'}
-        // ]
-        // setSearchResults([...searchResults, ...user])
-        // setSearchResults([...searchResults, searchParams])
     }
 
     useEffect( () => {

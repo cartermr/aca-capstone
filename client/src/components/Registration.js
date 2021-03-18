@@ -8,6 +8,7 @@ import Container from '@material-ui/core/Container';
 import MenuItem from '@material-ui/core/MenuItem'
 
 import { useState, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles( (theme) => ({
     headers: {
@@ -16,6 +17,7 @@ const useStyles = makeStyles( (theme) => ({
 }))
 
 const Register = (props) => {
+    const history = useHistory()
     // control the input values, create searchParameters object
     const [registerParameters, setRegisterParameters] = useState({})
     const handleInput = (e) => {
@@ -24,7 +26,6 @@ const Register = (props) => {
         let params = registerParameters
         params[key] = value
         setRegisterParameters(params)
-        //console.log('registerParams = ' + JSON.stringify(registerParameters))
     }
 
     const form = useRef(null)
@@ -38,7 +39,7 @@ const Register = (props) => {
             body: data
         })
             .then(res => res.json())
-            .then(data => console.log(data))
+        history.push('/registration')
     }
 
 

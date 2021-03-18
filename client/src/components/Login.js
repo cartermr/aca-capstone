@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import { useHistory } from 'react-router-dom'
+
 const useStyles = makeStyles((theme) => ({
     paper: {
       marginTop: theme.spacing(8),
@@ -28,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 const Home = (props) => {
+    const history = useHistory()
     const classes = useStyles()
     return (
       <Container component="main" maxWidth="xs">
@@ -64,7 +67,7 @@ const Home = (props) => {
             />
             <Button
               type="click"
-              // onClick={}
+              onClick={() => history.push('/search')}
               variant="contained"
               color="primary"
               className={classes.submit}
