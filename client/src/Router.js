@@ -8,7 +8,9 @@ import Search from './components/Search'
 import Results from './components/Results'
 import Registration from './components/Registration'
 
-const checkAuth = () => false
+const checkAuth = () => {
+    fetch('/api/authenticate', {method: 'POST'}).then(res => res.json())
+}
 
 const ProtectedRoute = ( { component: Component, ...rest } ) => {
     return (

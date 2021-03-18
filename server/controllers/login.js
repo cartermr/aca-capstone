@@ -21,7 +21,7 @@ const login = async (req, res) => {
     //let token = await auth.createToken(user)
     let token = await auth.createToken()
 
-    res.cookie('authcookie', token, { expires: new Date(Date.now() + 900000), httpOnly: true }).json({'login': 'successful'})
+    res.cookie('authcookie', token, { expires: new Date(Date.now() + 900000), httpOnly: true }).json({'login': token})
 }
 
 module.exports = {login}

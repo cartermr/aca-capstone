@@ -27,15 +27,16 @@ const checkJwt = (req, res, next) => {
         console.log(token)
         jwt.verify(token, process.env.JWT_SECRET_STRING, (err, decoded) => {
             if (err) {
-                console.log('test')
+                console.log('token not verify')
                 res.sendStatus(403)
             }
-            console.log('test3')
+            console.log('auth OK')
             res.sendStatus(200)
         })
     } else {
-        console.log('test2')
-        res.sendStatus(403)
+        console.log('Auth Cookie not there')
+        // res.sendStatus(403)
+        res.status(403).json('false')
     }
 }
 
