@@ -81,12 +81,6 @@ const search = async (req, res) => {
         })
     }
 
-    //console.log(sql)
-    //console.log(values)
-
-    // perform search on database, grab results
-    //const results = await db.query(sql, values).then(data => data.rows)
-
     console.log(sql)
 
     sql = mysql.format(sql, values)
@@ -98,11 +92,6 @@ const search = async (req, res) => {
         console.log(result)
         res.json(result)
     })
-
-    //console.log(results)
-
-    // return search results to client
-    //return res.json(results)
 }
 
 // take entered height, create a range to search by

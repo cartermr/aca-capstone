@@ -10,7 +10,12 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles( (theme) => ({
     headers: {
-        marginTop: theme.spacing(2)}
+        marginTop: theme.spacing(2)
+    },
+    img: {
+      width: '150px',
+      objectFit: 'cover'
+    }
 }))
 
 const Results= ({searchResults}) => {
@@ -36,7 +41,11 @@ const Results= ({searchResults}) => {
       <Grid container justify="center" spacing={4}>
         {searchResults.map((person, index) => (
           <Grid item key={index}>
-            <img src={`https://storage.googleapis.com/nvissystem/${person.picture_filename}`} alt={person.first_name}/>
+            <img
+              id={person.id}
+              className={classes.img}
+              src={`https://storage.googleapis.com/nvissystem/${person.picture_filename}`}
+              alt={person.first_name}/>
           </Grid>
         ))}
       </Grid>
