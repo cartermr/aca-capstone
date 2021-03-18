@@ -11,13 +11,16 @@ import Registration from './components/Registration'
 const Router = () => {
     const [auth, setAuth] = useState(false)
     const [isVerify, setIsVerify] = useState(true)
-    const {
-        searchParams, 
-        setSearchParams,
-        searchResults,
-        setSearchResults
-    } = useContext(Context)
-    // console.log(setSearchParams)
+    // const {
+    //     searchParams, 
+    //     setSearchParams,
+    //     searchResults,
+    //     setSearchResults
+    // } = useContext(Context)
+
+    const { state } = useContext(Context)
+
+    console.log(state)
 
     const checkAuth = () => {
         return fetch('/api/authenticate', {method: 'POST'})
@@ -48,15 +51,12 @@ const Router = () => {
             />
             <ProtectedRoute
                 path='/search'
-                searchParams={searchParams}
-                setSearchParams={setSearchParams}
-                searchResults={searchResults}
-                setSearchResults={setSearchResults}
+                state={state}
                 component={Search}
             />
             <Route
                 path='/results'
-                render={props => <Results searchResults={searchResults} />}
+                render={props => <Results searchResults={state.searchResults} />}
             />
             <Route path='/registration' component={Registration} />
         </Switch>
