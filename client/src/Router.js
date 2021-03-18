@@ -1,5 +1,5 @@
 import { Switch, Route, Redirect } from 'react-router'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 
 import { Context } from './context'
 
@@ -8,19 +8,9 @@ import Search from './components/Search'
 import Results from './components/Results'
 import Registration from './components/Registration'
 
-const checkAuth = () => {
-    fetch('/api/authenticate', {method: 'POST'}).then(res => res.json())
-}
-
-const ProtectedRoute = ( { component: Component, ...rest } ) => {
-    return (
-        <Route {...rest}>
-            { checkAuth() ? <Component {...rest} /> : <Redirect to='/' />}
-        </Route>
-    )
-}
-
 const Router = () => {
+    const [auth, setAuth] = useState(false)
+    const [isVerify, setIsVerify] = useState(true)
     const {
         searchParams, 
         setSearchParams,
@@ -28,6 +18,27 @@ const Router = () => {
         setSearchResults
     } = useContext(Context)
     // console.log(setSearchParams)
+
+    const checkAuth = () => {
+        return fetch('/api/authenticate', {method: 'POST'})
+            .then(res => {
+                res.ok ? setAuth(true) : setAuth(false)
+                setIsVerify(false)
+                return
+            })
+    }
+    
+    const ProtectedRoute = ( { component: Component, ...rest } ) => {
+        checkAuth()
+        return (
+            !isVerify ?
+                <Route {...rest}>
+                    { auth ? <Component {...rest} /> : <Redirect to='/' />}
+                </Route>
+                : null            
+        )
+    }
+
     return (
         <Switch>
             <Route

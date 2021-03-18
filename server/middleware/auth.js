@@ -13,7 +13,7 @@ const jwt = require('jsonwebtoken')
 const createToken = async (user) => {
     let token = jwt.sign({
         user: 'Matt'
-    }, process.env.JWT_SECRET_STRING)
+    }, process.env.JWT_SECRET_STRING || 'john')
     return token
 }
 
@@ -25,7 +25,7 @@ const checkJwt = (req, res, next) => {
     if (req.cookies.authcookie) {
         const token = req.cookies.authcookie
         console.log(token)
-        jwt.verify(token, process.env.JWT_SECRET_STRING, (err, decoded) => {
+        jwt.verify(token, process.env.JWT_SECRET_STRING || 'john', (err, decoded) => {
             if (err) {
                 console.log('token not verify')
                 res.sendStatus(403)
