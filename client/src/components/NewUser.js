@@ -40,9 +40,14 @@ const NewUser = () => {
 
   const createUser = () => {
     console.log(newUser)
-    // fetch("/api/login", { method: "POST" })
-    //   .then( res => res.ok)
-    //   .then(ok => ok ? history.push('/search') : window.alert('Login Failed'))
+    fetch("/api/newuser", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newUser)
+    })
+      .then( res => res.ok ? window.location.reload() : window.alert('There was an error at the server creating a new user'))
   };
 
   return (

@@ -33,7 +33,8 @@ const Login = () => {
   const history = useHistory();
   const classes = useStyles();
 
-  const login = () => {
+  const login = (e) => {
+    e.preventDefault()
     fetch("/api/login", { method: "POST" })
       .then( res => res.ok)
       .then(ok => ok ? history.push('/search') : window.alert('Login Failed'))
