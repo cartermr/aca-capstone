@@ -1,8 +1,6 @@
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -29,11 +27,11 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const Login = () => {
+const NewUser = () => {
   const history = useHistory();
   const classes = useStyles();
 
-  const login = () => {
+  const createUser = () => {
     fetch("/api/login", { method: "POST" })
       .then( res => res.ok)
       .then(ok => ok ? history.push('/search') : window.alert('Login Failed'))
@@ -43,13 +41,32 @@ return (
   <Container component="main" maxWidth="xs">
     <CssBaseline />
     <div className={classes.paper}>
-      <Avatar className={classes.avatar}>
-        <LockOutlinedIcon />
-      </Avatar>
       <Typography component="h1" variant="h5">
-        Sign in
+        Create New Account
       </Typography>
       <div className={classes.form}>
+      <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="first_name"
+          label="First Name"
+          name="first_name"
+          autoFocus
+          // onChange={}
+        />
+      <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="last_name"
+          label="Last Name"
+          name="last_name"
+          autoFocus
+          // onChange={}
+        />
         <TextField
           variant="outlined"
           margin="normal"
@@ -72,14 +89,25 @@ return (
           id="password"
           // onChange={}
         />
+         <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Verify Password"
+          type="password"
+          id="password"
+          // onChange={}
+        />
         <Button
           type="click"
-          onClick={login}
+          onClick={createUser}
           variant="contained"
           color="primary"
           className={classes.submit}
         >
-          Sign In
+          Create
         </Button>
       </div>
     </div>
@@ -87,4 +115,4 @@ return (
 );
 }
 
-export default Login
+export default NewUser

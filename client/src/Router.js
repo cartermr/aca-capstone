@@ -7,6 +7,7 @@ import Login from './components/Login'
 import Search from './components/Search'
 import Results from './components/Results'
 import Registration from './components/Registration'
+import NewUser from './components/NewUser'
 
 const Router = () => {
     const [auth, setAuth] = useState(false)
@@ -57,6 +58,10 @@ const Router = () => {
             <Route
                 path='/results'
                 render={props => <Results searchResults={state.searchResults} />}
+            />
+            <Route
+                path='/newuser'
+                component={NewUser}
             />
             <Route path='/registration' component={Registration} />
         </Switch>
