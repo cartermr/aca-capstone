@@ -5,18 +5,15 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles( theme => ( {
     paper: {
       marginTop: theme.spacing(8),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-    },
-    avatar: {
-      margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
     },
     form: {
       width: '100%', // Fix IE 11 issue.
@@ -25,94 +22,103 @@ const useStyles = makeStyles((theme) => ({
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
-  }));
+  } ) );
 
 const NewUser = () => {
+  const [newUser, setNewUser] = useState({})
   const history = useHistory();
   const classes = useStyles();
 
+  const handleInput = (e) => {
+    let key = e.target.name
+    let value = e.target.value
+    let params = newUser
+    params[key] = value
+    setNewUser(params)
+    console.log(newUser)
+}
+
   const createUser = () => {
-    fetch("/api/login", { method: "POST" })
-      .then( res => res.ok)
-      .then(ok => ok ? history.push('/search') : window.alert('Login Failed'))
+    console.log(newUser)
+    // fetch("/api/login", { method: "POST" })
+    //   .then( res => res.ok)
+    //   .then(ok => ok ? history.push('/search') : window.alert('Login Failed'))
   };
 
-return (
-  <Container component="main" maxWidth="xs">
-    <CssBaseline />
-    <div className={classes.paper}>
-      <Typography component="h1" variant="h5">
-        Create New Account
-      </Typography>
-      <div className={classes.form}>
-      <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="first_name"
-          label="First Name"
-          name="first_name"
-          autoFocus
-          // onChange={}
-        />
-      <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="last_name"
-          label="Last Name"
-          name="last_name"
-          autoFocus
-          // onChange={}
-        />
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Typography component="h1" variant="h5">
+          Create New Account
+        </Typography>
+        <form className={classes.form}>
         <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="email"
-          label="Username"
-          name="email"
-          autoFocus
-          // onChange={}
-        />
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="first_name"
+            label="First Name"
+            name="first_name"
+            autoFocus
+            onChange={handleInput}
+          />
         <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Password"
-          type="password"
-          id="password"
-          // onChange={}
-        />
-         <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Verify Password"
-          type="password"
-          id="password"
-          // onChange={}
-        />
-        <Button
-          type="click"
-          onClick={createUser}
-          variant="contained"
-          color="primary"
-          className={classes.submit}
-        >
-          Create
-        </Button>
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="last_name"
+            label="Last Name"
+            name="last_name"
+            onChange={handleInput}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            onChange={handleInput}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            onChange={handleInput}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="verify_password"
+            label="Verify Password"
+            type="verify_password"
+            id="verify_password"
+            onChange={handleInput}
+          />
+          <Button
+            type="click"
+            onClick={createUser}
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Create
+          </Button>
+        </form>
       </div>
-    </div>
-  </Container>
-);
+    </Container>
+  );
 }
 
 export default NewUser

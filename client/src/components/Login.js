@@ -42,7 +42,7 @@ const Login = () => {
 return (
   <Container component="main" maxWidth="xs">
     <CssBaseline />
-    <div className={classes.paper}>
+    <form className={classes.paper}>
       <Avatar className={classes.avatar}>
         <LockOutlinedIcon />
       </Avatar>
@@ -82,7 +82,7 @@ return (
           Sign In
         </Button>
       </div>
-    </div>
+    </form>
   </Container>
 );
 }
