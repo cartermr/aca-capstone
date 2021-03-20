@@ -26,6 +26,12 @@ const useStyles = makeStyles( theme => ( {
 
 const NewUser = () => {
   const [newUser, setNewUser] = useState({})
+  const [passError, setPassError] = useState( {
+    isValid: true,
+    isSame: true,
+    validMsg: "Password Doesn't meet complexity requirements",
+    sameMsg: "Passwords must match"
+  } )
   const history = useHistory();
   const classes = useStyles();
 
@@ -35,20 +41,24 @@ const NewUser = () => {
     let params = newUser
     params[key] = value
     setNewUser(params)
-    // console.log(newUser)
+    console.log(newUser)
+}
+
+const passValidation = () => {
+  
 }
 
   const createUser = (e) => {
     e.preventDefault()
-    let user = newUser
-    delete user.verify_password
-    fetch("/api/newuser", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(user)
-    })
+    // let user = newUser
+    // delete user.verify_password
+    // fetch("/api/newuser", {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(user)
+    // })
   };
 
   return (
@@ -69,6 +79,7 @@ const NewUser = () => {
             name="first_name"
             autoFocus
             onChange={handleInput}
+            value={newUser.first_name}
           />
         <TextField
             variant="outlined"
@@ -79,6 +90,7 @@ const NewUser = () => {
             label="Last Name"
             name="last_name"
             onChange={handleInput}
+            value={newUser.last_name}
           />
           <TextField
             variant="outlined"
@@ -89,6 +101,7 @@ const NewUser = () => {
             label="Username"
             name="username"
             onChange={handleInput}
+            value={newUser.username}
           />
           <TextField
             variant="outlined"
@@ -100,6 +113,7 @@ const NewUser = () => {
             type="password"
             id="password"
             onChange={handleInput}
+            value={newUser.password}
           />
           <TextField
             variant="outlined"
@@ -111,6 +125,7 @@ const NewUser = () => {
             type="verify_password"
             id="verify_password"
             onChange={handleInput}
+            value={newUser.verify_password}
           />
           <Button
             type="click"
