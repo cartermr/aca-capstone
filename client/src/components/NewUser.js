@@ -35,19 +35,20 @@ const NewUser = () => {
     let params = newUser
     params[key] = value
     setNewUser(params)
-    console.log(newUser)
+    // console.log(newUser)
 }
 
-  const createUser = () => {
-    console.log(newUser)
+  const createUser = (e) => {
+    e.preventDefault()
+    let user = newUser
+    delete user.verify_password
     fetch("/api/newuser", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(newUser)
+      body: JSON.stringify(user)
     })
-      .then( res => res.ok ? window.location.reload() : window.alert('There was an error at the server creating a new user'))
   };
 
   return (

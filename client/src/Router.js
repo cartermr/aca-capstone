@@ -12,16 +12,10 @@ import NewUser from './components/NewUser'
 const Router = () => {
     const [auth, setAuth] = useState(false)
     const [isVerify, setIsVerify] = useState(true)
-    // const {
-    //     searchParams, 
-    //     setSearchParams,
-    //     searchResults,
-    //     setSearchResults
-    // } = useContext(Context)
 
     const { state } = useContext(Context)
 
-    console.log(state)
+    // console.log(state)
 
     const checkAuth = () => {
         return fetch('/api/authenticate', {method: 'POST'})
