@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import { useHistory } from 'react-router-dom'
+import { useState } from 'react'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -32,10 +33,26 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
   const history = useHistory();
   const classes = useStyles();
+  const [user, setUser] = useState({})
 
-  const login = (e) => {
+  const handleInput = (e) => {
+    let key = e.target.name
+    let value = e.target.value
+    let params = user
+    params[key] = value
+    setUser(params)
+    // console.log(newUser)
+}
+
+  const loginUser = (e) => {
     e.preventDefault()
-    fetch("/api/login", { method: "POST" })
+    fetch("/api/login", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
       .then( res => res.ok)
       .then(ok => ok ? history.push('/search') : window.alert('Login Failed'))
   };
@@ -56,11 +73,11 @@ return (
           margin="normal"
           required
           fullWidth
-          id="email"
+          id="username"
           label="Username"
-          name="email"
+          name="username"
           autoFocus
-          // onChange={}
+          onChange={handleInput}
         />
         <TextField
           variant="outlined"
@@ -71,11 +88,11 @@ return (
           label="Password"
           type="password"
           id="password"
-          // onChange={}
+          onChange={handleInput}
         />
         <Button
           type="click"
-          onClick={login}
+          onClick={loginUser}
           variant="contained"
           color="primary"
           className={classes.submit}

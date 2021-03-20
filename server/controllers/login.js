@@ -1,27 +1,45 @@
 const auth = require('../middleware/auth')
-//const db = require('../database/DatabaseConnection')
+const {DB, mysql} = require('../database/DatabaseConnection')
 
 const login = async (req, res) => {
-    // let username = req.body.username
+    let username = req.body.username
 
-    // let sql = 'SELECT * FROM "Users" WHERE username = $1'
+    console.log(username)
 
-    // user = await db.query(sql, [username]).then(data => data.rows[0])
+    let sql = 'SELECT * FROM Users WHERE username = ?'
+    sql = mysql.format(sql, [username])
 
-    // if (user == null) {
-    //     return res.sendStatus(403)
-    // }
+    let user = await query(sql, [username]).then( res => res[0])
 
-    // let authorized = await auth.checkPass(req.body.password, user.hash)
+    console.log(user)
 
-    // if (!authorized) {
-    //     return res.sendStatus(403)
-    // }
+    if (user == null) {
+        return res.sendStatus(403)
+    }
 
-    //let token = await auth.createToken(user)
-    let token = await auth.createToken()
+    let authorized = await auth.checkPass(req.body.password, user.password)
+
+    if (!authorized) {
+        return res.sendStatus(403)
+    }
+
+    let token = await auth.createToken(user)
+    // let token = await auth.createToken()
+
+    console.log(token)
 
     res.cookie('authcookie', token, { expires: new Date(Date.now() + 900000), httpOnly: true }).json({'login': token})
+}
+
+const query = (sql, vals) => {
+    return new Promise( ( resolve, reject ) => {
+        DB.query(sql, vals, ( err, result ) => {
+            if ( err ) {
+                return reject(err)
+            }
+            resolve(result)
+        })
+    } )
 }
 
 module.exports = {login}
