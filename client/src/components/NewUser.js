@@ -25,31 +25,97 @@ const useStyles = makeStyles( theme => ( {
   } ) );
 
 const NewUser = () => {
-  const [newUser, setNewUser] = useState({})
+  const [newUser, setNewUser] = useState({
+    first_name: "",
+    last_name: "",
+    username: "",
+    password: "",
+    verify_password: ""
+  })
+
   const [passError, setPassError] = useState( {
-    isValid: true,
-    isSame: true,
-    validMsg: "Password Doesn't meet complexity requirements",
-    sameMsg: "Passwords must match"
-  } )
+    notValid: false,
+    notSame: false,
+    validMsg: "",
+    sameMsg: ""
+  })
+
+  const [isblank, setIsBlanks] = useState( {
+    first_name: false,
+    last_name: false,
+    username: false,
+    password: false,
+    verify_password: false,
+    blankMsg: "Must not be Blank"
+  })
+
   const history = useHistory();
   const classes = useStyles();
 
+  // CONTROL INPUT TO FORM FIELDS
   const handleInput = (e) => {
     let key = e.target.name
     let value = e.target.value
+    
     let params = newUser
+    let blank = isblank
+
+    blank[key] = false
     params[key] = value
-    setNewUser(params)
+
+    setNewUser({...newUser, params})
+    setIsBlanks({...isblank, blank})
+
+    
+    if ( key === 'password' || key === 'verify_password' ) {
+      passValidation()
+    }
+
     console.log(newUser)
 }
 
+
+// PASSWORD VALIDATION LOGIC
 const passValidation = () => {
-  
+  setPassError({...passError, notValid: false, notSame: false, validMsg: "", sameMsg: ""})
+
+  if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test(newUser.password)) {
+    setPassError({...passError, notValid: true, validMsg: "Must contain at least one number, one uppercase letter, one lowercase letter, and be at least 8 or more characters"})
+    return false
+  }
+
+  if (newUser.verify_password && newUser.password !== newUser.verify_password) {
+    setPassError({...passError, notSame: true, sameMsg: "Passwords Must Match"})
+    return false
+  }
+  return true
 }
 
+// CHECK FOR BLANK FIELDS
+const checkBlanks = () => {
+  let blank = isblank
+  let valid = true
+  Object.keys(isblank).forEach( key => {
+    if (key === 'blankMsg') {
+      return
+    }
+
+    if (newUser[key] === "") {
+      blank[key] = true
+      setIsBlanks({...isblank, blank})
+      valid = false
+    }
+  })
+  return valid
+}
+
+// CALL API TO CREATE USER
   const createUser = (e) => {
     e.preventDefault()
+    if (!checkBlanks() || !passValidation()) {
+      return
+    }
+
     // let user = newUser
     // delete user.verify_password
     // fetch("/api/newuser", {
@@ -61,6 +127,8 @@ const passValidation = () => {
     // })
   };
 
+
+  // JSX RETURN
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -80,6 +148,8 @@ const passValidation = () => {
             autoFocus
             onChange={handleInput}
             value={newUser.first_name}
+            error={isblank.first_name}
+            helperText={isblank.first_name ? isblank.blankMsg : ''}
           />
         <TextField
             variant="outlined"
@@ -91,6 +161,8 @@ const passValidation = () => {
             name="last_name"
             onChange={handleInput}
             value={newUser.last_name}
+            error={isblank.last_name}
+            helperText={isblank.first_name ? isblank.blankMsg : ''}
           />
           <TextField
             variant="outlined"
@@ -100,8 +172,11 @@ const passValidation = () => {
             id="username"
             label="Username"
             name="username"
+            type='email'
             onChange={handleInput}
             value={newUser.username}
+            error={isblank.username}
+            helperText={isblank.first_name ? isblank.blankMsg : ''}
           />
           <TextField
             variant="outlined"
@@ -114,6 +189,8 @@ const passValidation = () => {
             id="password"
             onChange={handleInput}
             value={newUser.password}
+            error={passError.notValid || passError.notSame || isblank.password}
+            helperText={passError.notValid || passError.notSame || isblank.password ? passError.validMsg || passError.sameMsg || isblank.blankMsg : ''}
           />
           <TextField
             variant="outlined"
@@ -122,10 +199,12 @@ const passValidation = () => {
             fullWidth
             name="verify_password"
             label="Verify Password"
-            type="verify_password"
+            type="password"
             id="verify_password"
             onChange={handleInput}
             value={newUser.verify_password}
+            error={passError.notSame || isblank.verify_password}
+            helperText={passError.notSame || isblank.verify_password ? passError.sameMsg || isblank.blankMsg : ''}
           />
           <Button
             type="click"
