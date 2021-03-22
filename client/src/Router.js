@@ -8,6 +8,7 @@ import Search from './components/Search'
 import Results from './components/Results'
 import Registration from './components/Registration'
 import NewUser from './components/NewUser'
+import Dashboard from './components/dash/Dashboard'
 
 const Router = () => {
     const [auth, setAuth] = useState(false)
@@ -58,6 +59,7 @@ const Router = () => {
                 component={NewUser}
             />
             <Route path='/registration' component={Registration} />
+            <Route path='/dashboard' component={Dashboard} />
         </Switch>
     )
 }
