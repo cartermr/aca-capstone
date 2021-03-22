@@ -4,11 +4,11 @@ import { useContext, useState } from 'react'
 import { Context } from './context'
 
 import Login from './components/Login'
-import Search from './components/Search'
-import Results from './components/Results'
-import Registration from './components/Registration'
-import NewUser from './components/NewUser'
-import Dashboard from './components/dash/Dashboard'
+import Search from './components/internal/Search'
+import Results from './components/internal/Results'
+import Registration from './components/public/Registration'
+import NewUser from './components/internal/NewUser'
+import Dashboard from './components/public/Dashboard'
 
 const Router = () => {
     const [auth, setAuth] = useState(false)
