@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import { useState } from 'react'
-import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles( theme => ( {
     paper: {
@@ -49,7 +48,6 @@ const NewUser = () => {
     blankMsg: "Must not be Blank"
   })
 
-  const history = useHistory();
   const classes = useStyles();
 
   // CONTROL INPUT TO FORM FIELDS
@@ -63,8 +61,8 @@ const NewUser = () => {
     blank[key] = false
     params[key] = value
 
-    setNewUser({...newUser, params})
-    setIsBlanks({...isblank, blank})
+    setNewUser({...newUser, ...params})
+    setIsBlanks({...isblank, ...blank})
 
     
     if ( key === 'password' || key === 'verify_password' ) {
@@ -116,15 +114,15 @@ const checkBlanks = () => {
       return
     }
 
-    // let user = newUser
-    // delete user.verify_password
-    // fetch("/api/newuser", {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(user)
-    // })
+    let user = newUser
+    delete user.verify_password
+    fetch("/api/internal/newuser", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
   };
 
 

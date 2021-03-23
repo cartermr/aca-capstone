@@ -20,7 +20,7 @@ router.get('/logout', logout)
 router.post('/login', login)
 
 // route create new agency user
-router.post('/newuser', newAgencyUser)
+router.post('/internal/newuser', newAgencyUser)
 
 // route to perform search
 router.post('/search', search)

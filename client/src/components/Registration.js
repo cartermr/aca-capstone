@@ -8,7 +8,6 @@ import Container from "@material-ui/core/Container";
 import MenuItem from "@material-ui/core/MenuItem";
 
 import { useState, useRef } from "react";
-import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   headers: {
@@ -17,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Register = (props) => {
-  const history = useHistory();
   // control the input values, create searchParameters object
   const [registerParameters, setRegisterParameters] = useState( {
       first_name: "",
