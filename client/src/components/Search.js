@@ -1,6 +1,8 @@
+// Module imports
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 
+// Material UI imports
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -10,14 +12,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import MenuItem from '@material-ui/core/MenuItem'
 
+// Small style element to control spacing with some parts of UI
 const useStyles = makeStyles( (theme) => ({
     headers: {
         marginTop: theme.spacing(2)
     }
 }))
 
-// {searchParams, setSearchParams, searchResults, setSearchResults}
-
+// The Search component
 const Search = ({state: {searchParams, setSearchParams, searchResults, setSearchResults}}) => {
     //console.log(props)
 
