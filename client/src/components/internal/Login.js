@@ -61,7 +61,7 @@ const Login = () => {
       body: JSON.stringify(user)
     })
       .then( res => res.ok)
-      .then(ok => ok ? window.location.replace('/search') : window.alert('Login Failed'))
+      .then(ok => ok ? window.location.replace('/internal/search') : window.alert('Login Failed'))
   };
 
 // JSX return of login page

@@ -5,17 +5,18 @@ import { useContext, useState } from 'react'
 // Import context to pass site wide state
 import { Context } from './context'
 
-// Site Wide
-import Login from './components/Login'
+// Sitewide Components
+import Portal from './components/siteWide/Portal'
 
 // Internal Componenets
-import Search from './components/Search'
-import Results from './components/Results'
-import NewAgencyUser from './components/NewAgencyUser'
+import Login from './components/internal/Login'
+import Search from './components/internal/Search'
+import Results from './components/internal/Results'
+import NewAgencyUser from './components/internal/NewAgencyUser'
 
 // Public Components
-import Registration from './components/Registration'
-import Dashboard from './components/Dashboard'
+import Registration from './components/public/Registration'
+import Dashboard from './components/public/Dashboard'
 
 // React Router function
 const Router = () => {
@@ -54,18 +55,22 @@ const Router = () => {
     // The actual router code, display certain components based on URL route
     return (
         <Switch>
-            <Route
+             <Route
                 exact
                 path='/'
+                component={Portal}
+            />
+            <Route
+                path='/internal/login'
                 component={Login}
             />
             <ProtectedRoute
-                path='/search'
+                path='/internal/search'
                 state={state}
                 component={Search}
             />
             <ProtectedRoute
-                path='/results'
+                path='/internal/results'
                 searchResults={state.searchResults}
                 component={Results}
             />
@@ -73,8 +78,8 @@ const Router = () => {
                 path='/internal/newuser'
                 component={NewAgencyUser}
             />
-            <Route path='/registration' component={Registration} />
-            <Route path='/dashboard' component={Dashboard} />
+            <Route path='/public/registration' component={Registration} />
+            <Route path='/public/dashboard' component={Dashboard} />
         </Switch>
     )
 }
