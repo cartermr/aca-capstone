@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 // Module import
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useHistory } from 'react-router'
 
 // Styles for Material UI components
@@ -65,22 +65,15 @@ const Login = ({User, setUser}) => {
       },
       body: JSON.stringify(login)
     })
-    console.log(res)
     const data = res.ok ? await res.json() : false
-    console.log(data)
     if (!data) {
       setError(true)
       return
     } else {
       setUser(data)
-      history.push('/internal/search')
+      history.push('/public/dashboard')
     }
   };
-
-  useEffect(() => {
-    console.log(User)
-    console.log(error)
-  }, [User, error])
 
 // JSX return of login page
   return (

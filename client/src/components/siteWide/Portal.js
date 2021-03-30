@@ -1,5 +1,6 @@
-import { Grid, Paper, Button, Box, Typography } from '@material-ui/core'
+import { Grid, Paper, Box, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { useHistory } from 'react-router'
 
 const useStyles = makeStyles( theme => ({
     root: {
@@ -12,6 +13,7 @@ const useStyles = makeStyles( theme => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-evenly',
+        marginTop: theme.spacing(5)
     },
     box: {
         alignSelf: 'center',
@@ -25,16 +27,8 @@ const useStyles = makeStyles( theme => ({
     }
 }))
 
-{/* <Paper className={classes.paper}>
-<Button className={classes.button} variant='contained' color='primary'>
-    Public
-</Button>
-<Button className={classes.button} variant='contained' color='primary'>
-    Agency
-</Button>
-</Paper> */}
-
 const Portal = () => {
+    const history = useHistory()
     const classes = useStyles()
     return (
         <Grid container className={classes.root}>
@@ -49,12 +43,12 @@ const Portal = () => {
                     <Typography align='center' variant='body1'>
                         If you are a member of an agency using this system, please click on the Agency link below
                     </Typography>
-                    <Box className={classes.box}>
+                    <Box onClick={() => history.push('/public/login')} className={classes.box}>
                         <Typography variant='h4'>
                             Public
                         </Typography>
                     </Box>
-                    <Box className={classes.box}>
+                    <Box onClick={() => history.push('/internal/login')} className={classes.box}>
                         <Typography variant='h4'>
                             Agency
                         </Typography>

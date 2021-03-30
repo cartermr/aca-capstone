@@ -11,7 +11,7 @@ const login = async (req, res) => {
 
     let user = await query(sql, [username]).then( res => res[0])
 
-    console.log(user)
+    // console.log(user)
 
     if (user == null) {
         return res.sendStatus(403)
@@ -23,12 +23,12 @@ const login = async (req, res) => {
         return res.sendStatus(403)
     }
 
-    let token = await auth.createToken(user)
+    let token = await auth.createToken({'username': user.username, 'role': user.role})
     // let token = await auth.createToken()
 
     console.log(token)
 
-    res.cookie('authcookie', token, { expires: new Date(Date.now() + 900000), httpOnly: true }).json({'login': token})
+    res.cookie('authcookie', token, { expires: new Date(Date.now() + 900000), httpOnly: true }).json({'username': user.username, 'role': user.role})
 }
 
 const query = (sql, vals) => {

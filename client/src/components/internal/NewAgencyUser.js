@@ -116,7 +116,8 @@ const checkBlanks = () => {
 
     let user = newUser
     delete user.verify_password
-    fetch("/api/internal/newuser", {
+    user.role = 'search'
+    fetch("/api/newuser", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

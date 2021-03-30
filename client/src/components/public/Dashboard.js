@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from 'react-router'
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -44,7 +45,8 @@ const useStyles = makeStyles((theme) => ({
     height: 240,
   },
 }));
-export default function Dashboard() {
+const Dashboard = () => {
+  const history = useHistory()
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -63,7 +65,7 @@ export default function Dashboard() {
             </ListItemIcon>
             <ListItemText primary="Account" />
           </ListItem>
-          <ListItem button>
+          <ListItem onClick={() => history.push('/public/registration')} button>
             <ListItemIcon>
               <PersonAddIcon />
             </ListItemIcon>
@@ -87,3 +89,5 @@ export default function Dashboard() {
     </div>
   );
 }
+
+export default Dashboard

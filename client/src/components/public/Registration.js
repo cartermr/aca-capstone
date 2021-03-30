@@ -8,6 +8,7 @@ import Container from "@material-ui/core/Container";
 import MenuItem from "@material-ui/core/MenuItem";
 
 import { useState, useRef } from "react";
+import { useHistory } from 'react-router'
 
 const useStyles = makeStyles((theme) => ({
   headers: {
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Register = (props) => {
+  const history = useHistory()
   // control the input values, create searchParameters object
   const [registerParameters, setRegisterParameters] = useState( {
       first_name: "",
@@ -103,7 +105,11 @@ const Register = (props) => {
   };
 
   const reset = () => {
-    window.location.reload();
+    let restore = registerParameters
+    Object.keys(registerParameters).forEach(key => {
+      restore[key] = ''
+    })
+    setRegisterParameters({...restore})
   };
 
   // CHECK FOR BLANK FIELDS
@@ -433,6 +439,11 @@ const Register = (props) => {
           <Grid item>
             <Button onClick={reset} variant="contained" color="primary">
               RESET
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button onClick={() => history.push('/public/dashboard')} variant="contained" color="primary">
+              HOME
             </Button>
           </Grid>
         </Grid>

@@ -1,7 +1,7 @@
 const {DB, mysql} = require('../database/DatabaseConnection')
 const auth = require('../middleware/auth')
 
-const newAgencyUser = async (req, res) => {
+const newUser = async (req, res) => {
     let newUser = req.body
 
     // console.log(newUser)
@@ -12,7 +12,6 @@ const newAgencyUser = async (req, res) => {
 
     let hash = await auth.hashPassword(newUser.password)
     newUser.password = hash
-    newUser.role = 'search'
     let sql = 'INSERT INTO Users (first_name, last_name, username, password, role) VALUES (?, ?, ?, ?, ?)'
     sql = mysql.format(sql, [...Object.values(newUser)])
     DB.query(sql, ( err, result ) => {
@@ -36,4 +35,4 @@ const checkUser = (username) => {
     return false
 }
 //
-module.exports = {newAgencyUser}
+module.exports = {newUser}

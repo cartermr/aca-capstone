@@ -50,7 +50,7 @@ const Search = ({state: {searchParams, setSearchParams, searchResults, setSearch
             .then( res => res.json())
             .then( data => {
                 setSearchResults(data)
-                history.push('/results')
+                history.push('/internal/results')
             })
     }
 

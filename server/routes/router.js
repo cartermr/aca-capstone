@@ -6,7 +6,7 @@ const auth = require('../middleware/auth')
 // import services to route requests to (services to be used)
 const {search} = require('../controllers/search') // Search functions
 const {register} = require('../controllers/register') // Register new person function
-const {newAgencyUser} = require('../controllers/newAgencyUser')
+const {newUser} = require('../controllers/newUser')
 const {login} = require('../controllers/login')
 const {logout} = require('../controllers/logout')
 
@@ -20,7 +20,7 @@ router.get('/logout', logout)
 router.post('/login', login)
 
 // route create new agency user
-router.post('/internal/newuser', newAgencyUser)
+router.post('/newuser', newUser)
 
 // route to perform search
 router.post('/search', search)

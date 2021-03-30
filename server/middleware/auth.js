@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const createToken = async (user) => {
-    let token = jwt.sign({}, process.env.JWT_SECRET_STRING || 'test')
+    let token = jwt.sign(user, process.env.JWT_SECRET_STRING || 'test')
     return token
 }
 
@@ -20,7 +20,7 @@ const checkJwt = (req, res, next) => {
                 res.sendStatus(403)
             }
             console.log('auth OK')
-            res.sendStatus(200)
+            res.status(200).json(decoded)
         })
     } else {
         console.log('Auth Cookie not there')
