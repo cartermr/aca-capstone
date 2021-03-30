@@ -21,8 +21,6 @@ const useStyles = makeStyles( (theme) => ({
 
 // The Search component
 const Search = ({state: {searchParams, setSearchParams, searchResults, setSearchResults}}) => {
-    //console.log(props)
-
     const history = useHistory()
     
     const reset = () => {

@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // Login component
-const Login = ({User, setUser}) => {
+const Login = () => {
   const history = useHistory()
   // Object to access defined style for the Material UI coponents
   const classes = useStyles();
@@ -70,7 +70,7 @@ const Login = ({User, setUser}) => {
       setError(true)
       return
     } else {
-      setUser(data)
+      sessionStorage.setItem('user', JSON.stringify(data))
       history.push('/public/dashboard')
     }
   };
@@ -124,12 +124,21 @@ const Login = ({User, setUser}) => {
           </Button>
           <Button
             type="click"
-            onClick={() => window.location.replace('/')}
+            onClick={() => history.push('/')}
             variant="contained"
             color="primary"
             className={classes.submit}
           >
             Home
+          </Button>
+          <Button
+            type="click"
+            onClick={() => history.push('/public/newuser')}
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Create Account
           </Button>
         </div>
       </form>

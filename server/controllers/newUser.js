@@ -4,8 +4,6 @@ const auth = require('../middleware/auth')
 const newUser = async (req, res) => {
     let newUser = req.body
 
-    // console.log(newUser)
-
     if (checkUser(newUser.username)) {
         return res.sendStatus(404)
     }
@@ -25,7 +23,6 @@ const newUser = async (req, res) => {
 const checkUser = (username) => {
     let sql = 'SELECT * FROM Users WHERE username = ?'
     sql = mysql.format(sql, [username])
-    // console.log(sql)
     let query = DB.query(sql, ( err, result ) => {
         if ( err ) throw err
     })

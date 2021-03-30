@@ -24,7 +24,7 @@ const useStyles = makeStyles( theme => ({
     },
   }));
 
-const NewAgencyUser = () => {
+const NewPublicUser = () => {
   const history = useHistory()
   const [newUser, setNewUser] = useState({
     first_name: "",
@@ -116,14 +116,14 @@ const checkBlanks = () => {
 
     let user = newUser
     delete user.verify_password
-    user.role = 'search'
+    user.role = 'register'
     fetch("/api/newuser", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(user)
-    }).then(res => res.ok ? history.push('/internal/login') : window.location.reload())
+    }).then(res => res.ok ? history.push('/public/login') : window.location.reload())
   };
 
 
@@ -220,4 +220,4 @@ const checkBlanks = () => {
   );
 }
 
-export default NewAgencyUser
+export default NewPublicUser
