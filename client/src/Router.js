@@ -1,9 +1,6 @@
 // Module imports
 import { Switch, Route, Redirect } from 'react-router'
-import { useContext, useState } from 'react'
-
-// Import context to pass site wide state
-import { Context } from './context'
+import { useState } from 'react'
 
 // Sitewide Components
 import Portal from './components/siteWide/Portal'
@@ -18,34 +15,33 @@ import NewAgencyUser from './components/internal/NewAgencyUser'
 import PublicLogin from './components/public/Login'
 import Registration from './components/public/Registration'
 import Dashboard from './components/public/Dashboard'
+import NewPublicUser from './components/public/newPublicUser'
 
 // React Router function
 const Router = () => {
-    // Local boolean state to determine if authorized while switching to protected routes
     const [auth, setAuth] = useState(false)
-    // Local boolean to determine if verification has finished or not
     const [isVerify, setIsVerify] = useState(true)
-    const [type, setType] = useState('')
 
-    // Site wide state
-    const { state } = useContext(Context)
-
-    // console.log(state)
+    const [searchParams, setSearchParams] = useState({})
+    const [searchResults, setSearchResults] = useState([])
+    const searchState = {
+        searchParams,
+        setSearchParams,
+        searchResults,
+        setSearchResults
+    }
 
     // Authorization function that runs when accessing protected routes
     const checkAuth = () => {
         return fetch('/api/authenticate', {method: 'POST'})
-            .then(res => res.json())
-            .then(data => {
-                if (data) {
+            .then(res => {
+                if (res.ok) {
                     setAuth(true)
-                    setType(data.role)
-                    state.setUser(data)
                 } else {
                     setAuth(false)
+                    sessionStorage.clear()
                 }
                 setIsVerify(false)
-                return
             })
     }
     
@@ -55,7 +51,7 @@ const Router = () => {
         return (
             !isVerify ?
                 <Route {...rest}>
-                    { auth && type === 'search' ? <Component {...rest} /> : <Redirect to='/' />}
+                    { auth && sessionStorage.getItem('user') && JSON.parse(sessionStorage.getItem('user'))['role'] === 'search' ? <Component {...rest} /> : <Redirect to='/' />}
                 </Route>
                 : null            
         )
@@ -67,7 +63,7 @@ const Router = () => {
         return (
             !isVerify ?
                 <Route {...rest}>
-                    { auth && type === 'register' ? <Component {...rest} /> : <Redirect to='/' />}
+                    { auth && sessionStorage.getItem('user') && JSON.parse(sessionStorage.getItem('user'))['role'] === 'register' ? <Component {...rest} /> : <Redirect to='/' />}
                 </Route>
                 : null            
         )
@@ -83,29 +79,42 @@ const Router = () => {
             />
             <Route
                 path='/internal/login'
-                // component={InternalLogin}
-                render={(props) => <InternalLogin {...props} {...state} />}
+                component={InternalLogin}
             />
-             <Route
-                path='/public/login'
-                render={(props) => <PublicLogin {...props} {...state} />}
-            />
+
+            {/* Agency User Routes */}
             <ProtectedInternaleRoute
                 path='/internal/search'
-                state={state}
+                state={searchState}
                 component={Search}
             />
             <ProtectedInternaleRoute
                 path='/internal/results'
-                searchResults={state.searchResults}
+                searchResults={searchState.searchResults}
                 component={Results}
             />
             <Route
                 path='/internal/newuser'
                 component={NewAgencyUser}
             />
-            <ProtectedPublicRoute path='/public/registration' state={state} component={Registration} />
-            <ProtectedPublicRoute path='/public/dashboard' state={state} component={Dashboard} />
+
+            {/* Public User Routes */}
+            <Route
+                path='/public/login'
+                component={PublicLogin}
+            />
+            <ProtectedPublicRoute
+                path='/public/registration'
+                component={Registration}
+            />
+            <ProtectedPublicRoute
+                path='/public/dashboard'
+                component={Dashboard}
+            />
+            <Route
+                path='/public/newuser'
+                component={NewPublicUser}
+            />
         </Switch>
     )
 }
