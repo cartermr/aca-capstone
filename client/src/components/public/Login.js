@@ -71,7 +71,7 @@ const Login = () => {
       return
     } else {
       sessionStorage.setItem('user', JSON.stringify(data))
-      history.push('/public/dashboard')
+      history.replace('/public/dashboard')
     }
   };
 

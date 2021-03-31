@@ -5,6 +5,7 @@ const {DB, mysql} = require('../database/DatabaseConnection')
 const register = async (req, res) => {
     // retrieve the data of the new person to be registered 
     let newPerson = req.body
+    console.log(newPerson)
 
     if (newPerson.height_feet && !newPerson.height_inches) {
         newPerson['height'] = parseInt(newPerson.height_feet)
@@ -22,8 +23,10 @@ const register = async (req, res) => {
         newPerson['apartment_number'] = ''
     }
 
+    newPerson.age = getAge(newPerson.dob)
+
     let sql = `INSERT INTO Registered (${Object.keys(newPerson)})
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
 
     console.log(sql)
 
@@ -36,6 +39,12 @@ const register = async (req, res) => {
         console.log(result)
         res.sendStatus(200)
     })
+}
+
+const getAge = (dob) => {
+    let dif = new Date() - new Date(dob)
+    let age = Math.floor(dif / (1000 * 60 * 60 * 24 * 365.25))
+    return age
 }
 
 // export the function to be used by the router

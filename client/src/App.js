@@ -9,7 +9,7 @@ const Main = () => (
   </BrowserRouter>
 )
 
-function App() {
+const App = () => {
   return (
     <div>
         <Header />

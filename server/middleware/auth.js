@@ -10,7 +10,7 @@ const checkPass = async (pass, hash) => {
     return await bcrypt.compare(pass, hash)
 }
 
-const checkJwt = (req, res, next) => {
+const authenticate = (req, res, next) => {
     if (req.cookies.authcookie) {
         const token = req.cookies.authcookie
         console.log(token)
@@ -29,12 +29,36 @@ const checkJwt = (req, res, next) => {
     }
 }
 
+const checkJwt = (req, res, next) => {
+    if (req.cookies.authcookie) {
+        const token = req.cookies.authcookie
+        console.log(token)
+        jwt.verify(token, process.env.JWT_SECRET_STRING || 'test', (err, decoded) => {
+            if (err) {
+                console.log('token not verify')
+                res.sendStatus(403)
+            }
+            console.log('auth OK')
+            
+            if (decoded.role === 'search') {
+                next()
+            } else {
+                res.sendStatus(403)
+            }
+        })
+    } else {
+        console.log('Auth Cookie not there')
+        // res.sendStatus(403)
+        res.status(403).json('false')
+    }
+}
+
 const hashPassword = async (pass) => {
     const hash = await bcrypt.hash(pass, 10)
     return hash
 }
 
-module.exports = {createToken, checkJwt, checkPass, hashPassword}
+module.exports = {createToken, authenticate, checkJwt, checkPass, hashPassword}
 
 
 

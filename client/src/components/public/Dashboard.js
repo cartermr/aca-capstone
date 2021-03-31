@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from 'react-router'
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,6 +15,9 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
+import { IconButton } from "@material-ui/core";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -39,15 +42,29 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
-    flexDirection: "column",
+    marginTop: theme.spacing(1)
   },
-  fixedHeight: {
-    height: 240,
-  },
+  name: {
+    flexGrow: 1
+  }
 }));
 const Dashboard = () => {
   const history = useHistory()
   const classes = useStyles();
+
+  const [registeredPeople, setRegisteredPeople] = useState([])
+
+  useEffect(() => {
+    fetch('/api/getregistered', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({username: JSON.parse(sessionStorage.getItem('user')).username})
+    }).then(res => res.json())
+      .then(data => setRegisteredPeople(data))
+  }, [])
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -77,11 +94,20 @@ const Dashboard = () => {
       <main className={classes.content}>
         <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
-              {/* Recent Orders */}
               <Grid item xs={12}>
-                <Paper className={classes.paper}>
-                  <Typography variant="h4">Data To Display Here</Typography>
-                </Paper>
+                {registeredPeople.map( (person, index) => {
+                  return (
+                    <Paper key={index} className={classes.paper}>
+                      <Typography className={classes.name} variant="h5">{`${person.first_name} ${person.last_name}`}</Typography>
+                      <IconButton>
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton>
+                        <DeleteIcon />
+                      </IconButton>
+                    </Paper>
+                  )
+                })}
               </Grid>
             </Grid>
           </Container>

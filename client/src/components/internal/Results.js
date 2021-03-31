@@ -39,20 +39,24 @@ const Results= ({searchResults}) => {
       </Typography>
       <hr />
       <Grid container justify="center" spacing={4}>
-        {searchResults.map((person, index) => (
-          <Grid item key={index}>
-            <img
-              id={person.id}
-              className={classes.img}
-              src={`https://storage.googleapis.com/nvissystem/${person.picture_filename}`}
-              alt={person.first_name}/>
-          </Grid>
+        {searchResults.length === 0 ?
+          <Grid item>
+            <Typography variant='h4' color='error'>Sorry, no people found</Typography>
+          </Grid> :
+          searchResults.map((person, index) => (
+            <Grid item key={index}>
+              <img
+                id={person.id}
+                className={classes.img}
+                src={`https://storage.googleapis.com/nvissystem/${person.picture_filename}`}
+                alt={person.first_name}/>
+            </Grid>
         ))}
       </Grid>
       <hr />
       <Grid container spacing={2}>
         <Grid item>
-          <Button onClick={() => history.push('/search')} variant="contained" color="primary">
+          <Button onClick={() => history.push('/internal/search')} variant="contained" color="primary">
             NEW SEARCH
           </Button>
         </Grid>

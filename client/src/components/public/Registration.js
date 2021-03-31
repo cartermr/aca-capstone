@@ -96,12 +96,12 @@ const Register = (props) => {
     }
 
     const data = new FormData(form.current);
+    data.append('account_owner', JSON.parse(sessionStorage.getItem('user')).username)
 
     fetch("/api/register", {
       method: "POST",
       body: data,
-    }).then((res) => res.json());
-    window.location.reload();
+    }).then(res => res.ok ? history.push('/public/dashboard') : window.alert('Registration failed, please try again'));
   };
 
   const reset = () => {
@@ -117,9 +117,13 @@ const Register = (props) => {
     let blank = isblank;
     let valid = true;
     Object.keys(isblank).forEach((key) => {
-        if (key === 'blankMsg') {
-            return
-        }
+      if (key === 'blankMsg') {
+          return
+      }
+
+      if (key === 'apartment_number') {
+        return
+      }
         
       if (registerParameters[key] === "") {
         blank[key] = true;

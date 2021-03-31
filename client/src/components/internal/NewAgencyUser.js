@@ -50,6 +50,11 @@ const NewAgencyUser = () => {
     blankMsg: "Must not be Blank"
   })
 
+  const [notValidEmail, setNotValidEmail] = useState({
+    notValid: false,
+    msg: "Must be a valid email address"
+  })
+
   const classes = useStyles();
 
   // CONTROL INPUT TO FORM FIELDS
@@ -107,10 +112,21 @@ const checkBlanks = () => {
   return valid
 }
 
+const validEmail = () => {
+  if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(newUser.username)) {
+    return true
+  } else {
+    let test = notValidEmail
+    test.notValid = true
+    setNotValidEmail(test)
+    return false
+  }
+}
+
 // CALL API TO CREATE USER
   const createUser = (e) => {
     e.preventDefault()
-    if (!checkBlanks() || !passValidation()) {
+    if (!checkBlanks() || !passValidation() || !validEmail()) {
       return
     }
 
@@ -169,13 +185,13 @@ const checkBlanks = () => {
             required
             fullWidth
             id="username"
-            label="Username"
+            label="Email (this will be your username)"
             name="username"
             type='email'
             onChange={handleInput}
             value={newUser.username}
-            error={isblank.username}
-            helperText={isblank.first_name ? isblank.blankMsg : ''}
+            error={isblank.username || notValidEmail.notValid}
+            helperText={isblank.first_name || notValidEmail.notValid ? notValidEmail.msg || isblank.blankMsg : ''}
           />
           <TextField
             variant="outlined"

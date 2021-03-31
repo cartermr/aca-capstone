@@ -13,7 +13,8 @@ const useStyles = makeStyles( theme => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-evenly',
-        marginTop: theme.spacing(5)
+        marginTop: theme.spacing(5),
+        padding: theme.spacing(1)
     },
     box: {
         alignSelf: 'center',

@@ -9,24 +9,26 @@ const {register} = require('../controllers/register') // Register new person fun
 const {newUser} = require('../controllers/newUser')
 const {login} = require('../controllers/login')
 const {logout} = require('../controllers/logout')
+const {registeredPeople} = require('../controllers/registeredPeople')
 
 // import middleware to be used
-//const {multer, upload} = require('../middleware/fileUpload') // handle image upload
+const {multer, upload} = require('../middleware/fileUpload') // handle image upload
 
 // defined routes (api endpoints)
-router.post('/authenticate', auth.checkJwt)
+// public endpoints
+router.post('/authenticate', auth.authenticate)
 router.get('/logout', logout)
-
 router.post('/login', login)
 
-// route create new agency user
+// route create new user
 router.post('/newuser', newUser)
 
 // route to perform search
 router.post('/search', search)
 
 // route to register a person
-//router.post('/register', multer.single('photo'), upload, register)
+router.post('/register', multer.single('photo'), upload, register)
+router.post('/getregistered', registeredPeople)
 
 // export router
 module.exports = router
