@@ -2,7 +2,7 @@
 const {DB, mysql} = require('../database/DatabaseConnection')
 
 const registeredPeople = (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     let sql = 'select * from Registered where account_owner = ?'
 
     sql = mysql.format(sql, [req.body.username])

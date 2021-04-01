@@ -4,7 +4,7 @@ const {DB, mysql} = require('../database/DatabaseConnection')
 const login = async (req, res) => {
     let username = req.body.username
 
-    console.log(username)
+    // console.log(username)
 
     let sql = 'SELECT * FROM Users WHERE username = ?'
     sql = mysql.format(sql, [username])
@@ -26,7 +26,7 @@ const login = async (req, res) => {
     let token = await auth.createToken({'username': user.username, 'role': user.role})
     // let token = await auth.createToken()
 
-    console.log(token)
+    // console.log(token)
 
     res.cookie('authcookie', token, { expires: new Date(Date.now() + 900000), httpOnly: true }).json({'username': user.username, 'role': user.role})
 }
