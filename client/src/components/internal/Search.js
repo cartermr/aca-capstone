@@ -1,5 +1,4 @@
 // Module imports
-import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 
 // Material UI imports
@@ -33,7 +32,7 @@ const Search = ({state: {searchParams, setSearchParams, searchResults, setSearch
         let params = searchParams
         params[key] = value
         setSearchParams(params)
-        console.log(searchParams)
+        // console.log(searchParams)
     }
 
     const performSearch = (e) => {
@@ -51,10 +50,6 @@ const Search = ({state: {searchParams, setSearchParams, searchResults, setSearch
                 history.push('/internal/results')
             })
     }
-
-    useEffect( () => {
-        console.log(searchResults)
-    }, [searchResults])
 
     const classes = useStyles()
     return (

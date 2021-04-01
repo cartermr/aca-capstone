@@ -1,9 +1,6 @@
-// import database model
 const {DB, mysql} = require('../database/DatabaseConnection')
 
-// route to register a new person into the database
 const register = async (req, res) => {
-    // retrieve the data of the new person to be registered 
     let newPerson = req.body
     // console.log(newPerson)
 
@@ -47,5 +44,4 @@ const getAge = (dob) => {
     return age
 }
 
-// export the function to be used by the router
 module.exports = {register}

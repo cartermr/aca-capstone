@@ -19,7 +19,6 @@ import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton } from "@material-ui/core";
 
-const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -27,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     position: "relative",
     whiteSpace: "nowrap",
-    width: drawerWidth,
+    width: '240px',
   },
   content: {
     flexGrow: 1,

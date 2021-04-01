@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Modal from '@material-ui/core/Modal'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -24,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
 const ModalDisplay = (props) => {
     // console.log(props)
     const classes = useStyles()
-    // const [open, setOpen] = useState(false)
 
     const handleClose = () => {
         props.setOpen(false)

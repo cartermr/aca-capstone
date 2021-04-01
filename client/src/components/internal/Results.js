@@ -1,4 +1,4 @@
-import { useEffect,useState } from "react";
+import { useState } from "react";
 import { useHistory } from 'react-router-dom'
 
 import Grid from '@material-ui/core/Grid'
@@ -31,10 +31,6 @@ const Results= ({searchResults}) => {
     setPerson(searchResults[e.target.id])
     setOpen(true)
   }
-
-  useEffect(() => {
-    console.log(person)
-  }, [person])
 
   return (
     <div>

@@ -65,9 +65,9 @@ const Login = () => {
       },
       body: JSON.stringify(login)
     })
-    console.log(res)
+    // console.log(res)
     const data = res.ok ? await res.json() : false
-    console.log(data)
+    // console.log(data)
     if (!data) {
       setError(true)
       return

@@ -23,13 +23,14 @@ const newUser = async (req, res) => {
 const checkUser = (username) => {
     let sql = 'SELECT * FROM Users WHERE username = ?'
     sql = mysql.format(sql, [username])
-    let query = DB.query(sql, ( err, result ) => {
+    return DB.query(sql, ( err, result ) => {
         if ( err ) throw err
+        if (result.length > 0) {
+            return true
+        } else {
+            return false
+        }
     })
-    if (query._results > 0) {
-        return true
-    }
-    return false
 }
-//
+
 module.exports = {newUser}

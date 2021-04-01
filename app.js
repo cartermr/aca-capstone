@@ -26,10 +26,3 @@ app.use('/api', router)
 
 // start server //
 app.listen(port, () => console.log(`NVIS-Server started on port ${port}`))
-
-
-/**  Using Online Auto0 service
-//const {auth, config, requiresAuth} = require('./middleware/auth')
-//app.use(auth(config))
-//app.use(requiresAuth())
-***************************************************************************/

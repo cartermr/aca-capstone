@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Register = (props) => {
+const Register = () => {
   const history = useHistory()
   // control the input values, create searchParameters object
   const [registerParameters, setRegisterParameters] = useState( {
@@ -65,11 +65,6 @@ const Register = (props) => {
       emergency_phone: false,
       emergency_relationship: false
     } );
-
-
-
-
-
 
   const handleInput = (e) => {
     let key = e.target.name;

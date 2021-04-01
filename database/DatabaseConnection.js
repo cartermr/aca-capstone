@@ -1,12 +1,3 @@
-// const {Pool} = require('pg')
-// pool = new Pool({
-//     connectionString: process.env.DB_HOST,
-//     ssl: {
-//         require: true,
-//         rejectUnauthorized: false
-//     }
-// })
-
 mysql = require('mysql')
 const config = {
     connectionLimit: 100,
