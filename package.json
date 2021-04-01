@@ -4,7 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon",
+    "back": "nodemon",
+    "front": "cd client && npm start",
+    "dev": "concurrently \"nodemon app.js\" \"cd client && npm start\"",
     "start": "node app.js"
   },
   "author": "Matt Carter",
