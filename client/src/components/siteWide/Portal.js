@@ -38,20 +38,20 @@ const Portal = () => {
                     <Typography align='center' variant='h4'>
                         Welcome to the Non-Verbal Identification System
                     </Typography>
-                    <Typography align='center' variant='body1'>
-                        If you are a member of the public and would like to create an account and register a person, please click on the Public link below.
+                    <Typography align='center' variant='h5'>
+                        Please login to use the system
                     </Typography>
                     <Typography align='center' variant='body1'>
-                        If you are a member of an agency using this system, please click on the Agency link below
+                        If you are a member of the public and would like to register a person, please create an account
                     </Typography>
-                    <Box onClick={() => history.push('/public/login')} className={classes.box}>
+                    <Box onClick={() => history.push('/login')} className={classes.box}>
                         <Typography variant='h4'>
-                            Public
+                            Login
                         </Typography>
                     </Box>
-                    <Box onClick={() => history.push('/internal/login')} className={classes.box}>
+                    <Box onClick={() => history.push('/public/newuser')} className={classes.box}>
                         <Typography variant='h4'>
-                            Agency
+                            Create Account
                         </Typography>
                     </Box>
                 </Paper>

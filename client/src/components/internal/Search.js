@@ -22,6 +22,8 @@ const useStyles = makeStyles( (theme) => ({
 const Search = ({state: {searchParams, setSearchParams, searchResults, setSearchResults}}) => {
     const history = useHistory()
     
+    console.log(searchParams)
+
     const reset = () => {
         window.location.reload()
     }

@@ -20,7 +20,7 @@ const useStyles = makeStyles( (theme) => ({
     }
 }))
 
-const Results= ({searchResults}) => {
+const Results= ({searchResults, setSearchParams}) => {
   const [open, setOpen] = useState(false)
   const [person, setPerson] = useState({})
 
@@ -30,6 +30,11 @@ const Results= ({searchResults}) => {
   const handleModal = (e) => {
     setPerson(searchResults[e.target.id])
     setOpen(true)
+  }
+
+  const newSearch = () => {
+    setSearchParams([])
+    history.push('/internal/search')
   }
 
   return (
@@ -65,7 +70,7 @@ const Results= ({searchResults}) => {
         <hr />
         <Grid container spacing={2}>
           <Grid item>
-            <Button onClick={() => history.push('/internal/search')} variant="contained" color="primary">
+            <Button onClick={newSearch} variant="contained" color="primary">
               NEW SEARCH
             </Button>
           </Grid>

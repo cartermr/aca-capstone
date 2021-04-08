@@ -4,18 +4,19 @@ import { useState } from 'react'
 
 // Sitewide Components
 import Portal from './components/siteWide/Portal'
+import Login from './components/siteWide/Login'
 
 // Internal Componenets
-import InternalLogin from './components/internal/Login'
 import Search from './components/internal/Search'
 import Results from './components/internal/Results'
 import NewAgencyUser from './components/internal/NewAgencyUser'
 
 // Public Components
-import PublicLogin from './components/public/Login'
 import Registration from './components/public/Registration'
 import Dashboard from './components/public/Dashboard'
 import NewPublicUser from './components/public/newPublicUser'
+
+import SignUp from './components/siteWide/SignUp'
 
 // React Router function
 const Router = () => {
@@ -78,8 +79,8 @@ const Router = () => {
                 component={Portal}
             />
             <Route
-                path='/internal/login'
-                component={InternalLogin}
+                path='/login'
+                component={Login}
             />
 
             {/* Agency User Routes */}
@@ -91,6 +92,7 @@ const Router = () => {
             <ProtectedInternaleRoute
                 path='/internal/results'
                 searchResults={searchState.searchResults}
+                setSearchParams={searchState.setSearchParams}
                 component={Results}
             />
             <Route
@@ -99,10 +101,6 @@ const Router = () => {
             />
 
             {/* Public User Routes */}
-            <Route
-                path='/public/login'
-                component={PublicLogin}
-            />
             <ProtectedPublicRoute
                 path='/public/registration'
                 component={Registration}
@@ -114,6 +112,11 @@ const Router = () => {
             <Route
                 path='/public/newuser'
                 component={NewPublicUser}
+            />
+
+            <Route
+                path='/sign'
+                component={SignUp}
             />
         </Switch>
     )
