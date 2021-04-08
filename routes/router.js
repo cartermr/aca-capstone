@@ -30,5 +30,7 @@ router.post('/search', search)
 router.post('/register', multer.single('photo'), upload, register)
 router.post('/getregistered', registeredPeople)
 
+router.get('/', (req, res) => res.json('Base of API endpoints'))
+
 // export router
 module.exports = router
