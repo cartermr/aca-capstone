@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ModalDisplay = (props) => {
-    // console.log(props)
     const classes = useStyles()
 
     const handleClose = () => {
@@ -35,7 +34,7 @@ const ModalDisplay = (props) => {
             onClose={handleClose}
         >
             <div className={classes.paper}>
-                <img src={`https://storage.googleapis.com/nvissystem/${props.person.picture_filename}`} className={classes.image} />
+                <img src={`https://storage.googleapis.com/nvissystem/${props.person.picture_filename}`} className={classes.image} alt={`${props.person.first_name} ${props.person.last_name}`} />
                 <h2>{`${props.person.first_name} ${props.person.last_name}`}</h2>
                 <ul>
                     <li>{`Home Address: ${props.person.street}, ${props.person.city}, ${props.person.state} ${props.person.zip}`}</li>

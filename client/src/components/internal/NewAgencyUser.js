@@ -20,7 +20,8 @@ const useStyles = makeStyles( theme => ({
       marginTop: theme.spacing(1),
     },
     submit: {
-      margin: theme.spacing(3, 0, 2),
+      marginRight: theme.spacing(2),
+      marginTop: theme.spacing(1)
     },
   }));
 
@@ -139,7 +140,7 @@ const validEmail = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(user)
-    }).then(res => res.ok ? history.push('/internal/login') : window.location.reload())
+    }).then(res => res.ok ? history.push('/login') : window.location.reload())
   };
 
 
@@ -229,6 +230,15 @@ const validEmail = () => {
             className={classes.submit}
           >
             Create
+          </Button>
+          <Button
+            type="click"
+            onClick={() => history.push('/')}
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Home
           </Button>
         </form>
       </div>

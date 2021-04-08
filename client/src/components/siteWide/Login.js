@@ -52,7 +52,6 @@ const Login = () => {
     let params = login
     params[key] = value
     setLogin({...params})
-    // console.log(newUser)
   }
 
   // Perform the actual login, call out to API
@@ -65,9 +64,7 @@ const Login = () => {
       },
       body: JSON.stringify(login)
     })
-    // console.log(res)
     const data = res.ok ? await res.json() : false
-    // console.log(data)
     if (!data) {
       setError(true)
       return
@@ -75,7 +72,6 @@ const Login = () => {
       sessionStorage.setItem('user', JSON.stringify(data))
       console.log(data)
       data.role === 'search' ? history.push('/internal/search') : history.push('/public/dashboard')
-      // history.push('/internal/search')
     }
   };
 
@@ -134,15 +130,6 @@ const Login = () => {
             className={classes.submit}
           >
             Home
-          </Button>
-          <Button
-            type="click"
-            onClick={() => history.push('/internal/newuser')}
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Create Account
           </Button>
         </div>
       </form>

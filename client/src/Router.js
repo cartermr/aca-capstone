@@ -14,8 +14,6 @@ import NewAgencyUser from './components/internal/NewAgencyUser'
 // Public Components
 import Registration from './components/public/Registration'
 import Dashboard from './components/public/Dashboard'
-import NewPublicUser from './components/public/newPublicUser'
-
 import SignUp from './components/siteWide/SignUp'
 
 // React Router function
@@ -111,11 +109,6 @@ const Router = () => {
             />
             <Route
                 path='/public/newuser'
-                component={NewPublicUser}
-            />
-
-            <Route
-                path='/sign'
                 component={SignUp}
             />
         </Switch>
