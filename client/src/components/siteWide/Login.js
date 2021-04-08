@@ -70,7 +70,6 @@ const Login = () => {
       return
     } else {
       sessionStorage.setItem('user', JSON.stringify(data))
-      console.log(data)
       data.role === 'search' ? history.push('/internal/search') : history.push('/public/dashboard')
     }
   };

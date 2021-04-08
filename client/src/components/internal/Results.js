@@ -20,7 +20,7 @@ const useStyles = makeStyles( (theme) => ({
     }
 }))
 
-const Results= ({searchResults, setSearchParams}) => {
+const Results= ({searchResults, setSearchParams, setSearchResults}) => {
   const [open, setOpen] = useState(false)
   const [person, setPerson] = useState({})
 
@@ -33,7 +33,8 @@ const Results= ({searchResults, setSearchParams}) => {
   }
 
   const newSearch = () => {
-    setSearchParams([])
+    setSearchParams({})
+    setSearchResults([])
     history.push('/internal/search')
   }
 

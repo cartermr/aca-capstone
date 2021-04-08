@@ -19,11 +19,9 @@ const useStyles = makeStyles( (theme) => ({
 }))
 
 // The Search component
-const Search = ({state: {searchParams, setSearchParams, searchResults, setSearchResults}}) => {
+const Search = ({searchParams, setSearchParams, setSearchResults}) => {
     const history = useHistory()
     
-    console.log(searchParams)
-
     const reset = () => {
         window.location.reload()
     }
@@ -34,7 +32,6 @@ const Search = ({state: {searchParams, setSearchParams, searchResults, setSearch
         let params = searchParams
         params[key] = value
         setSearchParams(params)
-        // console.log(searchParams)
     }
 
     const performSearch = (e) => {

@@ -26,9 +26,9 @@ app.use(express.static(path.join(__dirname, '/client/build')))
 app.use('/api', router)
 
 // helper path for react-router routes
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname + '/client/build/index.html'))
-// })
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/client/build/index.html'))
+})
 
 // start server //
 app.listen(port, () => console.log(`NVIS-Server started on port ${port}`))

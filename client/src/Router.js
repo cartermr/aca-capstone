@@ -23,12 +23,6 @@ const Router = () => {
 
     const [searchParams, setSearchParams] = useState({})
     const [searchResults, setSearchResults] = useState([])
-    const searchState = {
-        searchParams,
-        setSearchParams,
-        searchResults,
-        setSearchResults
-    }
 
     // Authorization function that runs when accessing protected routes
     const checkAuth = () => {
@@ -84,13 +78,17 @@ const Router = () => {
             {/* Agency User Routes */}
             <ProtectedInternaleRoute
                 path='/internal/search'
-                state={searchState}
+                searchResults={searchResults}
+                setSearchResults={setSearchResults}
+                searchParams={searchParams}
+                setSearchParams={setSearchParams}
                 component={Search}
             />
             <ProtectedInternaleRoute
                 path='/internal/results'
-                searchResults={searchState.searchResults}
-                setSearchParams={searchState.setSearchParams}
+                searchResults={searchResults}
+                setSearchResults={setSearchResults}
+                setSearchParams={setSearchParams}
                 component={Results}
             />
             <Route
