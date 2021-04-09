@@ -19,6 +19,8 @@ import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton } from "@material-ui/core";
 
+import EditModal from './EditModal'
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -51,7 +53,9 @@ const Dashboard = () => {
   const history = useHistory()
   const classes = useStyles();
 
+  const [open, setOpen] = useState(false)
   const [registeredPeople, setRegisteredPeople] = useState([])
+  const [person, setPerson] = useState({})
 
   useEffect(() => {
     fetch('/api/getregistered', {
@@ -63,6 +67,12 @@ const Dashboard = () => {
     }).then(res => res.json())
       .then(data => setRegisteredPeople(data))
   }, [])
+
+  const editPerson = (per) => {
+    setPerson(per)
+    setOpen(true)
+    console.log(per)
+  }
 
   return (
     <div className={classes.root}>
@@ -98,7 +108,7 @@ const Dashboard = () => {
                   return (
                     <Paper key={index} className={classes.paper}>
                       <Typography className={classes.name} variant="h5">{`${person.first_name} ${person.last_name}`}</Typography>
-                      <IconButton>
+                      <IconButton onClick={() => editPerson(person)}>
                         <EditIcon />
                       </IconButton>
                       <IconButton>
@@ -111,6 +121,7 @@ const Dashboard = () => {
             </Grid>
           </Container>
       </main>
+      <EditModal open={open} setOpen={setOpen} person={person} />
     </div>
   );
 }
