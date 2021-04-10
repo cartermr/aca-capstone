@@ -5,8 +5,8 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 import MenuItem from "@material-ui/core/MenuItem";
+import { useEffect, useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,14 +20,63 @@ const useStyles = makeStyles((theme) => ({
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
+    },
+    button: {
+        marginTop: theme.spacing(2)
     }
 }));
 
 const EditModal = (props) => {
     const classes = useStyles()
 
+    const [person, setPerson] = useState({})
+    const [updates, setUpdates] = useState({})
+
+    useEffect(() => {
+        console.log(updates)
+    }, [updates])
+
+    useEffect(() => {
+        if (Object.entries(props.person).length === 0) {
+            return
+        }
+        let height = props.person.height.toString()
+        let [feet, inches] = height.split('.')
+        inches = parseInt(Number('.' + inches) * 12)
+
+        let per = props.person
+        per.height_feet = feet
+        per.height_inches = inches
+
+        setPerson(per)
+    }, [props.person])
+
     const handleClose = () => {
         props.setOpen(false)
+    }
+
+    const handleInput = (e) => {
+        let key = e.target.name
+        let value = e.target.value
+
+        let params = person
+        params[key] = value
+
+        setPerson(params)
+        console.log(person)
+    }
+
+    const update = () => {
+        let orig = props.person
+        let curr = person
+        Object.keys(orig).forEach(key => {
+            if (orig[key] != curr[key]) {
+                let params = updates
+                params[key] = person[key]
+                console.log(params)
+                setUpdates({...updates, ...params})
+            }
+        })
     }
 
     return (
@@ -45,8 +94,8 @@ const EditModal = (props) => {
                 <Grid item>
                     <TextField
                     variant="outlined"
-                    onChange={() => console.log(test)}
-                    value={props.person.first_name}
+                    onChange={handleInput}
+                    defaultValue={person.first_name}
                     name="first_name"
                     label="First Name"
                     />
@@ -54,8 +103,8 @@ const EditModal = (props) => {
                 <Grid item>
                     <TextField
                     variant="outlined"
-                    onChange={() => console.log(test)}
-                    value={props.person.last_name}
+                    onChange={handleInput}
+                    defaultValue={person.last_name}
                     name="last_name"
                     label="Last Name"
                     />
@@ -63,8 +112,8 @@ const EditModal = (props) => {
                 <Grid item>
                     <TextField
                     variant="outlined"
-                    onChange={() => console.log(test)}
-                    value={props.person.dob}
+                    onChange={handleInput}
+                    defaultValue={person.dob}
                     name="dob"
                     label="Date of Birth"
                     />
@@ -73,8 +122,8 @@ const EditModal = (props) => {
                     <TextField
                     select
                     variant="outlined"
-                    onChange={() => console.log(test)}
-                    value={props.person.race}
+                    onChange={handleInput}
+                    defaultValue={person.race}
                     name="race"
                     label="Race"
                     fullWidth={true}
@@ -90,8 +139,8 @@ const EditModal = (props) => {
                     <TextField
                     select
                     variant="outlined"
-                    onChange={() => console.log(test)}
-                    value={props.person.sex}
+                    onChange={handleInput}
+                    defaultValue={person.sex}
                     name="sex"
                     label="Sex"
                     fullWidth={true}
@@ -108,9 +157,8 @@ const EditModal = (props) => {
                     <Grid item xs={2}>
                         <TextField
                         variant="outlined"
-                        onChange={() => console.log(test)}
-                        // value={props.person.height_feet}
-                        value={props.person.height}
+                        onChange={handleInput}
+                        defaultValue={person.height_feet}
                         name="height_feet"
                         label="Height Feet"
                         fullWidth={true}
@@ -119,9 +167,8 @@ const EditModal = (props) => {
                     <Grid item xs={2}>
                         <TextField
                         variant="outlined"
-                        onChange={() => console.log(test)}
-                        // value={props.person.height_inches}
-                        value={props.person.height}
+                        onChange={handleInput}
+                        defaultValue={person.height_inches}
                         name="height_inches"
                         label="Height Inches"
                         fullWidth={true}
@@ -130,8 +177,8 @@ const EditModal = (props) => {
                     <Grid item xs={2}>
                         <TextField
                         variant="outlined"
-                        onChange={() => console.log(test)}
-                        value={props.person.weight}
+                        onChange={handleInput}
+                        defaultValue={person.weight}
                         name="weight"
                         label="Weight"
                         fullWidth={true}
@@ -141,8 +188,8 @@ const EditModal = (props) => {
                         <TextField
                         select
                         variant="outlined"
-                        onChange={() => console.log(test)}
-                        value={props.person.hair_color}
+                        onChange={handleInput}
+                        defaultValue={person.hair_color}
                         name="hair_color"
                         label="Hair Color"
                         fullWidth={true}
@@ -160,8 +207,8 @@ const EditModal = (props) => {
                         <TextField
                         select
                         variant="outlined"
-                        onChange={() => console.log(test)}
-                        value={props.person.eye_color}
+                        onChange={handleInput}
+                        defaultValue={person.eye_color}
                         name="eye_color"
                         label="Eye Color"
                         fullWidth={true}
@@ -180,8 +227,8 @@ const EditModal = (props) => {
                     <Grid item xs={8}>
                         <TextField
                         variant="outlined"
-                        onChange={() => console.log(test)}
-                        value={props.person.street}
+                        onChange={handleInput}
+                        defaultValue={person.street}
                         name="street"
                         label="Street"
                         fullWidth={true}
@@ -190,8 +237,8 @@ const EditModal = (props) => {
                     <Grid item xs={2}>
                         <TextField
                         variant="outlined"
-                        onChange={() => console.log(test)}
-                        value={props.person.apartment_number}
+                        onChange={handleInput}
+                        defaultValue={person.apartment_number}
                         name="apartment_number"
                         label="Apt Number"
                         />
@@ -201,8 +248,8 @@ const EditModal = (props) => {
                     <Grid item>
                         <TextField
                         variant="outlined"
-                        onChange={() => console.log(test)}
-                        value={props.person.city}
+                        onChange={handleInput}
+                        defaultValue={person.city}
                         name="city"
                         label="City"
                         />
@@ -210,8 +257,8 @@ const EditModal = (props) => {
                     <Grid item>
                         <TextField
                         variant="outlined"
-                        onChange={() => console.log(test)}
-                        value={props.person.state}
+                        onChange={handleInput}
+                        defaultValue={person.state}
                         name="state"
                         label="State"
                         />
@@ -219,8 +266,8 @@ const EditModal = (props) => {
                     <Grid item>
                         <TextField
                         variant="outlined"
-                        onChange={() => console.log(test)}
-                        value={props.person.zip}
+                        onChange={handleInput}
+                        defaultValue={person.zip}
                         name="zip"
                         label="Zip"
                         />
@@ -228,8 +275,8 @@ const EditModal = (props) => {
                     <Grid item>
                         <TextField
                         variant="outlined"
-                        onChange={() => console.log(test)}
-                        value={props.person.phone}
+                        onChange={handleInput}
+                        defaultValue={person.phone}
                         name="phone"
                         label="Phone"
                         />
@@ -242,8 +289,8 @@ const EditModal = (props) => {
                     <Grid item>
                         <TextField
                         variant="outlined"
-                        onChange={() => console.log(test)}
-                        value={props.person.emergency_name}
+                        onChange={handleInput}
+                        defaultValue={person.emergency_name}
                         name="emergency_name"
                         label="Name"
                         />
@@ -251,8 +298,8 @@ const EditModal = (props) => {
                     <Grid item xs={8}>
                         <TextField
                         variant="outlined"
-                        onChange={() => console.log(test)}
-                        value={props.person.emergency_address}
+                        onChange={handleInput}
+                        defaultValue={person.emergency_address}
                         name="emergency_address"
                         label="Address"
                         fullWidth={true}
@@ -263,8 +310,8 @@ const EditModal = (props) => {
                     <Grid item>
                         <TextField
                         variant="outlined"
-                        onChange={() => console.log(test)}
-                        value={props.person.emergency_phone}
+                        onChange={handleInput}
+                        defaultValue={person.emergency_phone}
                         name="emergency_phone"
                         label="Phone"
                         />
@@ -272,13 +319,19 @@ const EditModal = (props) => {
                     <Grid item>
                         <TextField
                         variant="outlined"
-                        onChange={() => console.log(test)}
-                        value={props.person.emergency_relationship}
+                        onChange={handleInput}
+                        defaultValue={person.emergency_relationship}
                         name="emergency_relationship"
                         label="Relationship"
                         />
                     </Grid>
                 </Grid>
+                <Button
+                    className={classes.button}
+                    variant='contained'
+                    color='primary'
+                    onClick={update}
+                >Update</Button>
             </div>
         </Modal>
     )

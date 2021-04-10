@@ -71,7 +71,7 @@ const Dashboard = () => {
   const editPerson = (per) => {
     setPerson(per)
     setOpen(true)
-    console.log(per)
+    // console.log(per)
   }
 
   return (
