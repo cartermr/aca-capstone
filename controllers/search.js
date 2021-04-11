@@ -81,15 +81,10 @@ const search = async (req, res) => {
         })
     }
 
-    // console.log(sql)
-
     sql = mysql.format(sql, values)
-
-    // console.log(sql)
 
     DB.query(sql, (err, result) => {
         if (err) throw err
-        // console.log(result)
         res.json(result)
     })
 }

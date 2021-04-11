@@ -29,7 +29,10 @@ const Header = () => {
                     <Typography className={classes.title} variant='h6'>
                         NVIS System
                     </Typography>
-                    <Button onClick={logout} color='inherit'>LOGOUT</Button>
+                    {sessionStorage.getItem('user') ?
+                        <Button onClick={logout} color='inherit'>LOGOUT</Button> :
+                        ''
+                    }
                 </Toolbar>
             </AppBar>
         </div>

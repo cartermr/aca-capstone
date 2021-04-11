@@ -4,14 +4,12 @@ const {DB, mysql} = require('../database/DatabaseConnection')
 const login = async (req, res) => {
     let username = req.body.username
 
-    // console.log(username)
 
     let sql = 'SELECT * FROM Users WHERE username = ?'
     sql = mysql.format(sql, [username])
 
     let user = await query(sql).then( res => res[0])
 
-    // console.log(user)
 
     if (user == null) {
         return res.sendStatus(403)
@@ -25,7 +23,6 @@ const login = async (req, res) => {
 
     let token = await auth.createToken(user)
 
-    // console.log(token)
 
     res.cookie('authcookie', token, { expires: new Date(Date.now() + 900000), httpOnly: true }).json({'username': user.username, 'role': user.role})
 }

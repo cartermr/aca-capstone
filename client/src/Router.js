@@ -5,6 +5,8 @@ import { useState } from 'react'
 // Sitewide Components
 import Portal from './components/siteWide/Portal'
 import Login from './components/siteWide/Login'
+import Header from './components/siteWide/Header'
+
 
 // Internal Componenets
 import Search from './components/internal/Search'
@@ -32,7 +34,6 @@ const Router = () => {
                     setAuth(true)
                 } else {
                     setAuth(false)
-                    sessionStorage.clear()
                 }
                 setIsVerify(false)
             })
@@ -64,52 +65,55 @@ const Router = () => {
 
     // The actual router code, display certain components based on URL route
     return (
-        <Switch>
-             <Route
-                exact
-                path='/'
-                component={Portal}
-            />
-            <Route
-                path='/login'
-                component={Login}
-            />
+        <>
+            <Header />
+            <Switch>
+                <Route
+                    exact
+                    path='/'
+                    component={Portal}
+                    />
+                <Route
+                    path='/login'
+                    component={Login}
+                    />
 
-            {/* Agency User Routes */}
-            <ProtectedInternaleRoute
-                path='/internal/search'
-                searchResults={searchResults}
-                setSearchResults={setSearchResults}
-                searchParams={searchParams}
-                setSearchParams={setSearchParams}
-                component={Search}
-            />
-            <ProtectedInternaleRoute
-                path='/internal/results'
-                searchResults={searchResults}
-                setSearchResults={setSearchResults}
-                setSearchParams={setSearchParams}
-                component={Results}
-            />
-            <Route
-                path='/internal/newuser'
-                component={NewAgencyUser}
-            />
+                {/* Agency User Routes */}
+                <ProtectedInternaleRoute
+                    path='/internal/search'
+                    searchResults={searchResults}
+                    setSearchResults={setSearchResults}
+                    searchParams={searchParams}
+                    setSearchParams={setSearchParams}
+                    component={Search}
+                    />
+                <ProtectedInternaleRoute
+                    path='/internal/results'
+                    searchResults={searchResults}
+                    setSearchResults={setSearchResults}
+                    setSearchParams={setSearchParams}
+                    component={Results}
+                    />
+                <Route
+                    path='/internal/newuser'
+                    component={NewAgencyUser}
+                    />
 
-            {/* Public User Routes */}
-            <ProtectedPublicRoute
-                path='/public/registration'
-                component={Registration}
-            />
-            <ProtectedPublicRoute
-                path='/public/dashboard'
-                component={Dashboard}
-            />
-            <Route
-                path='/public/newuser'
-                component={SignUp}
-            />
-        </Switch>
+                {/* Public User Routes */}
+                <ProtectedPublicRoute
+                    path='/public/registration'
+                    component={Registration}
+                    />
+                <ProtectedPublicRoute
+                    path='/public/dashboard'
+                    component={Dashboard}
+                    />
+                <Route
+                    path='/public/newuser'
+                    component={SignUp}
+                    />
+            </Switch>
+        </>
     )
 }
 

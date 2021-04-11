@@ -16,8 +16,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Register = () => {
+const Register = (props) => {
+  const classes = useStyles()
   const history = useHistory()
+  const form = useRef(null)
+
   // control the input values, create searchParameters object
   const [registerParameters, setRegisterParameters] = useState( {
       first_name: "",
@@ -78,11 +81,8 @@ const Register = () => {
 
     setIsBlank({ ...isblank, blank });
     setRegisterParameters(params);
-
-    console.log(registerParameters)
   };
 
-  const form = useRef(null);
   const registerPerson = (e) => {
     e.preventDefault();
 
@@ -129,7 +129,6 @@ const Register = () => {
     return valid;
   };
 
-  const classes = useStyles();
   return (
     <Container component="main">
       <CssBaseline />

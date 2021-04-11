@@ -35,11 +35,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // Login component
-const Login = () => {
+const Login = (props) => {
   const history = useHistory()
   // Object to access defined style for the Material UI coponents
   const classes = useStyles();
-
+  
   // Local state to stor the user credentials for login
   const [login, setLogin] = useState({'username': '', 'password': ''})
   const [error, setError] = useState(false)

@@ -2,7 +2,6 @@ const {DB, mysql} = require('../database/DatabaseConnection')
 
 const register = async (req, res) => {
     let newPerson = req.body
-    // console.log(newPerson)
 
     if (newPerson.height_feet && !newPerson.height_inches) {
         newPerson['height'] = parseInt(newPerson.height_feet)
@@ -25,15 +24,12 @@ const register = async (req, res) => {
     let sql = `INSERT INTO Registered (${Object.keys(newPerson)})
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
 
-    // console.log(sql)
 
     sql = mysql.format(sql, [...Object.values(newPerson)])
 
-    // console.log(sql)
 
     DB.query(sql, (err, result) => {
         if (err) throw err
-        // console.log(result)
         res.sendStatus(200)
     })
 }

@@ -66,12 +66,16 @@ const Dashboard = () => {
       body: JSON.stringify({username: JSON.parse(sessionStorage.getItem('user')).username})
     }).then(res => res.json())
       .then(data => setRegisteredPeople(data))
-  }, [])
+  }, [open, registeredPeople])
 
   const editPerson = (per) => {
     setPerson(per)
     setOpen(true)
-    // console.log(per)
+  }
+
+  const deletePerson = (id, index) => {
+    setRegisteredPeople(registeredPeople.splice(index, 1))
+    fetch(`/api/delete/${id}`, {method: 'DELETE'}).then(res => setOpen(false))
   }
 
   return (
@@ -85,12 +89,12 @@ const Dashboard = () => {
       >
         <Divider />
         <List>
-          <ListItem button>
+          {/* <ListItem button>
             <ListItemIcon>
               <AccountBoxIcon />
             </ListItemIcon>
             <ListItemText primary="Account" />
-          </ListItem>
+          </ListItem> */}
           <ListItem onClick={() => history.push('/public/registration')} button>
             <ListItemIcon>
               <PersonAddIcon />
@@ -111,7 +115,7 @@ const Dashboard = () => {
                       <IconButton onClick={() => editPerson(person)}>
                         <EditIcon />
                       </IconButton>
-                      <IconButton>
+                      <IconButton onClick={() => deletePerson(person.id, index)}>
                         <DeleteIcon />
                       </IconButton>
                     </Paper>

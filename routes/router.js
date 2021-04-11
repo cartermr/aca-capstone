@@ -10,6 +10,8 @@ const {newUser} = require('../controllers/newUser')
 const {login} = require('../controllers/login')
 const {logout} = require('../controllers/logout')
 const {registeredPeople} = require('../controllers/registeredPeople')
+const {updateRegistered} = require('../controllers/updateRegistered')
+const {deleteRegistered} = require('../controllers/deleteRegistered')
 
 // import middleware to be used
 const {multer, upload} = require('../middleware/fileUpload') // handle image upload
@@ -29,6 +31,8 @@ router.post('/search', search)
 // route to register a person
 router.post('/register', multer.single('photo'), upload, register)
 router.post('/getregistered', registeredPeople)
+router.post('/update', updateRegistered)
+router.delete('/delete/:id', deleteRegistered)
 
 router.get('/', (req, res) => res.json('Base of API endpoints'))
 

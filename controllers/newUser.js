@@ -24,7 +24,6 @@ const newUser = async (req, res) => {
     console.log(sql)
     DB.query(sql, ( err, result ) => {
         if ( err ) throw err
-        console.log(result)
     })
 
     res.sendStatus(200)

@@ -22,33 +22,29 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2, 4, 3),
     },
     button: {
-        marginTop: theme.spacing(2)
+        marginTop: theme.spacing(2),
+        marginRight: theme.spacing(2)
     }
 }));
 
 const EditModal = (props) => {
     const classes = useStyles()
 
-    const [person, setPerson] = useState({})
-    const [updates, setUpdates] = useState({})
+    const [editPerson, setEditPerson] = useState({})
 
     useEffect(() => {
-        console.log(updates)
-    }, [updates])
-
-    useEffect(() => {
-        if (Object.entries(props.person).length === 0) {
+        if (Object.keys(props.person).length === 0) {
             return
         }
         let height = props.person.height.toString()
         let [feet, inches] = height.split('.')
         inches = parseInt(Number('.' + inches) * 12)
 
-        let per = props.person
+        let per = {...props.person}
         per.height_feet = feet
         per.height_inches = inches
 
-        setPerson(per)
+        setEditPerson(per)
     }, [props.person])
 
     const handleClose = () => {
@@ -59,23 +55,45 @@ const EditModal = (props) => {
         let key = e.target.name
         let value = e.target.value
 
-        let params = person
+        let params = {...editPerson}
         params[key] = value
 
-        setPerson(params)
-        console.log(person)
+        setEditPerson(params)
     }
 
     const update = () => {
-        let orig = props.person
-        let curr = person
-        Object.keys(orig).forEach(key => {
-            if (orig[key] != curr[key]) {
-                let params = updates
-                params[key] = person[key]
-                console.log(params)
-                setUpdates({...updates, ...params})
+        let diff = {}
+        
+        Object.keys(props.person).forEach(key => {
+            if (props.person[key] === editPerson[key]) {
+                return
             }
+            diff[key] = editPerson[key]
+        })
+
+        if (editPerson.height_feet && !editPerson.height_inches) {
+            diff['height'] = parseInt(editPerson.height_feet)
+        }
+    
+        if (editPerson.height_feet && editPerson.height_inches) {
+            let inches = parseInt(editPerson.height_inches) / 12
+            diff['height'] = parseInt(editPerson.height_feet) + inches
+        }
+
+        if (Object.keys(diff).length === 0) {
+            return
+        }
+
+        diff.id = props.person.id
+
+        fetch('/api/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(diff)
+        }).then(res => {
+            props.setOpen(false)
         })
     }
 
@@ -95,7 +113,7 @@ const EditModal = (props) => {
                     <TextField
                     variant="outlined"
                     onChange={handleInput}
-                    defaultValue={person.first_name}
+                    defaultValue={editPerson.first_name}
                     name="first_name"
                     label="First Name"
                     />
@@ -104,7 +122,7 @@ const EditModal = (props) => {
                     <TextField
                     variant="outlined"
                     onChange={handleInput}
-                    defaultValue={person.last_name}
+                    defaultValue={editPerson.last_name}
                     name="last_name"
                     label="Last Name"
                     />
@@ -113,7 +131,7 @@ const EditModal = (props) => {
                     <TextField
                     variant="outlined"
                     onChange={handleInput}
-                    defaultValue={person.dob}
+                    defaultValue={editPerson.dob}
                     name="dob"
                     label="Date of Birth"
                     />
@@ -123,7 +141,7 @@ const EditModal = (props) => {
                     select
                     variant="outlined"
                     onChange={handleInput}
-                    defaultValue={person.race}
+                    defaultValue={editPerson.race}
                     name="race"
                     label="Race"
                     fullWidth={true}
@@ -140,7 +158,7 @@ const EditModal = (props) => {
                     select
                     variant="outlined"
                     onChange={handleInput}
-                    defaultValue={person.sex}
+                    defaultValue={editPerson.sex}
                     name="sex"
                     label="Sex"
                     fullWidth={true}
@@ -158,7 +176,7 @@ const EditModal = (props) => {
                         <TextField
                         variant="outlined"
                         onChange={handleInput}
-                        defaultValue={person.height_feet}
+                        defaultValue={editPerson.height_feet}
                         name="height_feet"
                         label="Height Feet"
                         fullWidth={true}
@@ -168,7 +186,7 @@ const EditModal = (props) => {
                         <TextField
                         variant="outlined"
                         onChange={handleInput}
-                        defaultValue={person.height_inches}
+                        defaultValue={editPerson.height_inches}
                         name="height_inches"
                         label="Height Inches"
                         fullWidth={true}
@@ -178,7 +196,7 @@ const EditModal = (props) => {
                         <TextField
                         variant="outlined"
                         onChange={handleInput}
-                        defaultValue={person.weight}
+                        defaultValue={editPerson.weight}
                         name="weight"
                         label="Weight"
                         fullWidth={true}
@@ -189,7 +207,7 @@ const EditModal = (props) => {
                         select
                         variant="outlined"
                         onChange={handleInput}
-                        defaultValue={person.hair_color}
+                        defaultValue={editPerson.hair_color}
                         name="hair_color"
                         label="Hair Color"
                         fullWidth={true}
@@ -208,7 +226,7 @@ const EditModal = (props) => {
                         select
                         variant="outlined"
                         onChange={handleInput}
-                        defaultValue={person.eye_color}
+                        defaultValue={editPerson.eye_color}
                         name="eye_color"
                         label="Eye Color"
                         fullWidth={true}
@@ -228,7 +246,7 @@ const EditModal = (props) => {
                         <TextField
                         variant="outlined"
                         onChange={handleInput}
-                        defaultValue={person.street}
+                        defaultValue={editPerson.street}
                         name="street"
                         label="Street"
                         fullWidth={true}
@@ -238,7 +256,7 @@ const EditModal = (props) => {
                         <TextField
                         variant="outlined"
                         onChange={handleInput}
-                        defaultValue={person.apartment_number}
+                        defaultValue={editPerson.apartment_number}
                         name="apartment_number"
                         label="Apt Number"
                         />
@@ -249,7 +267,7 @@ const EditModal = (props) => {
                         <TextField
                         variant="outlined"
                         onChange={handleInput}
-                        defaultValue={person.city}
+                        defaultValue={editPerson.city}
                         name="city"
                         label="City"
                         />
@@ -258,7 +276,7 @@ const EditModal = (props) => {
                         <TextField
                         variant="outlined"
                         onChange={handleInput}
-                        defaultValue={person.state}
+                        defaultValue={editPerson.state}
                         name="state"
                         label="State"
                         />
@@ -267,7 +285,7 @@ const EditModal = (props) => {
                         <TextField
                         variant="outlined"
                         onChange={handleInput}
-                        defaultValue={person.zip}
+                        defaultValue={editPerson.zip}
                         name="zip"
                         label="Zip"
                         />
@@ -276,7 +294,7 @@ const EditModal = (props) => {
                         <TextField
                         variant="outlined"
                         onChange={handleInput}
-                        defaultValue={person.phone}
+                        defaultValue={editPerson.phone}
                         name="phone"
                         label="Phone"
                         />
@@ -290,7 +308,7 @@ const EditModal = (props) => {
                         <TextField
                         variant="outlined"
                         onChange={handleInput}
-                        defaultValue={person.emergency_name}
+                        defaultValue={editPerson.emergency_name}
                         name="emergency_name"
                         label="Name"
                         />
@@ -299,7 +317,7 @@ const EditModal = (props) => {
                         <TextField
                         variant="outlined"
                         onChange={handleInput}
-                        defaultValue={person.emergency_address}
+                        defaultValue={editPerson.emergency_address}
                         name="emergency_address"
                         label="Address"
                         fullWidth={true}
@@ -311,7 +329,7 @@ const EditModal = (props) => {
                         <TextField
                         variant="outlined"
                         onChange={handleInput}
-                        defaultValue={person.emergency_phone}
+                        defaultValue={editPerson.emergency_phone}
                         name="emergency_phone"
                         label="Phone"
                         />
@@ -320,7 +338,7 @@ const EditModal = (props) => {
                         <TextField
                         variant="outlined"
                         onChange={handleInput}
-                        defaultValue={person.emergency_relationship}
+                        defaultValue={editPerson.emergency_relationship}
                         name="emergency_relationship"
                         label="Relationship"
                         />
@@ -332,6 +350,12 @@ const EditModal = (props) => {
                     color='primary'
                     onClick={update}
                 >Update</Button>
+                <Button
+                    className={classes.button}
+                    variant='contained'
+                    color='primary'
+                    onClick={() => props.setOpen(false)}
+                >Cancel</Button>
             </div>
         </Modal>
     )
