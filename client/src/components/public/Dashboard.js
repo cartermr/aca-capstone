@@ -13,7 +13,6 @@ import Paper from "@material-ui/core/Paper";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -47,6 +46,16 @@ const useStyles = makeStyles((theme) => ({
   },
   name: {
     flexGrow: 1
+  },
+  edit: {
+    '&:hover': {
+      color: '#008C00'
+    }
+  },
+  delete: {
+    '&:hover': {
+      color: 'red'
+    }
   }
 }));
 const Dashboard = () => {
@@ -113,10 +122,10 @@ const Dashboard = () => {
                     <Paper key={index} className={classes.paper}>
                       <Typography className={classes.name} variant="h5">{`${person.first_name} ${person.last_name}`}</Typography>
                       <IconButton onClick={() => editPerson(person)}>
-                        <EditIcon />
+                        <EditIcon className={classes.edit} />
                       </IconButton>
                       <IconButton onClick={() => deletePerson(person.id, index)}>
-                        <DeleteIcon />
+                        <DeleteIcon className={classes.delete} />
                       </IconButton>
                     </Paper>
                   )

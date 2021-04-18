@@ -1,6 +1,6 @@
-import { Grid, Paper, Box, Typography } from '@material-ui/core'
+import { Grid, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { useHistory } from 'react-router'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles( theme => ({
     root: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles( theme => ({
         marginTop: theme.spacing(5),
         padding: theme.spacing(1)
     },
-    box: {
+    link: {
         alignSelf: 'center',
         backgroundColor: '#3f51b5',
         color: 'white',
@@ -24,12 +24,16 @@ const useStyles = makeStyles( theme => ({
         width: '20rem',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        textDecoration: 'none',
+        transition: 'transform 0.25s',
+        '&:hover': {
+            transform: 'scale(1.1)'
+        }
     }
 }))
 
 const Portal = () => {
-    const history = useHistory()
     const classes = useStyles()
     return (
         <Grid container className={classes.root}>
@@ -44,16 +48,16 @@ const Portal = () => {
                     <Typography align='center' variant='body1'>
                         If you are a member of the public and would like to register a person, please create an account
                     </Typography>
-                    <Box onClick={() => history.push('/login')} className={classes.box}>
+                    <Link to='/login' className={classes.link}>
                         <Typography variant='h4'>
                             Login
                         </Typography>
-                    </Box>
-                    <Box onClick={() => history.push('/public/newuser')} className={classes.box}>
+                    </Link>
+                    <Link to='/public/newuser' className={classes.link}>
                         <Typography variant='h4'>
                             Create Account
                         </Typography>
-                    </Box>
+                    </Link>
                 </Paper>
             </Grid>
         </Grid>
